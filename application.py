@@ -48,7 +48,7 @@ def check():
 #     return json_final_data
 
 @app.route("/get_all_ledger_heads")
-def get_journal_data():
+def get_all_ledger_heads():
     
     import pyodbc
     import pandas as pd
