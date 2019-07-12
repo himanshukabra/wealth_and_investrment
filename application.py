@@ -46,3 +46,73 @@ def get_journal_data():
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
 
     return json_final_data
+
+@app.route("/get_all_ledger_heads")
+def get_journal_data(dbname):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+           
+       db=dbname
+       user="shsa"
+       server="13.127.124.84,6016"
+       password="Easeprint#021"
+       port = "80"
+       try:
+           conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+       except Exception as e:
+           print(e)
+
+       query = "select * from m_main_ledger_head"
+
+       abc = pd.read_sql(query, conn)    
+       json_final_data = abc.to_json(orient='records', date_format = 'iso')
+
+       conn.close()
+   
+    else:
+   
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+
+    return json_final_data
+
+@app.route("/get_ledger_basis_ledger_heads")
+def get_journal_data(dbname,ledgerhead):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+           
+       db=dbname
+       user="shsa"
+       server="13.127.124.84,6016"
+       password="Easeprint#021"
+       port = "80"
+       try:
+           conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+       except Exception as e:
+           print(e)
+
+       query = "select * from m_ledgermaster where LedgerHead = %s"%ledgerhead
+
+       abc = pd.read_sql(query, conn)    
+       json_final_data = abc.to_json(orient='records', date_format = 'iso')
+
+       conn.close()
+   
+    else:
+   
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+
+    return json_final_data
