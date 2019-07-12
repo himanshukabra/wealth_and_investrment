@@ -13,27 +13,35 @@ def check():
 
 @app.route("/get_journal_data")
 def get_journal_data():
+    
     import pyodbc
     import pandas as pd
     import pandas.io.sql as psql
-    db="MJK2018_2019"
-    user="shsa"
-    server="13.127.124.84,6016"
-    password="Easeprint#021"
-    port = "80"
-    try:
-        #conn = pyodbc.connect('DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + db +';UID=' + user + ';PWD=' + password)
-         conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
-    except Exception as e:
-        print(e)
+    import request
+      
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+           
+       db="MJK2018_2019"
+       user="shsa"
+       server="13.127.124.84,6016"
+       password="Easeprint#021"
+       port = "80"
+       try:
+           #conn = pyodbc.connect('DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + db +';UID=' + user + ';PWD=' + password)
+            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+       except Exception as e:
+           print(e)
 
-    #query = "select m_product.products_offered as product_name,income.scrip_id,case when income.product_id = 1 then m_equity.scripname when income.product_id = 2 then m_bonds.Bond_Name end as particulars,income.transaction_date,income.amount from t_income_data income left join m_product on income.product_id = m_product.id left join m_equity on income.product_id = m_product.id and income.scrip_id = m_equity.table_id left join m_bonds on income.product_id = m_product.id and income.scrip_id = m_bonds.id "    
-    query = "select * from t_journal"
-    
-    abc = pd.read_sql(query, conn)    
-    json_final_data = abc.to_json(orient='records', date_format = 'iso')
+       #query = "select m_product.products_offered as product_name,income.scrip_id,case when income.product_id = 1 then m_equity.scripname when income.product_id = 2 then m_bonds.Bond_Name end as particulars,income.transaction_date,income.amount from t_income_data income left join m_product on income.product_id = m_product.id left join m_equity on income.product_id = m_product.id and income.scrip_id = m_equity.table_id left join m_bonds on income.product_id = m_product.id and income.scrip_id = m_bonds.id "    
+       query = "select * from t_journal"
 
-    conn.close()
-    
-    return json_final_data
+       abc = pd.read_sql(query, conn)    
+       json_final_data = abc.to_json(orient='records', date_format = 'iso')
 
+       conn.close()
+
+       return json_final_data
+    else:
+       return jsonify({"message": "ERROR: Unauthorized Access"}), 401
