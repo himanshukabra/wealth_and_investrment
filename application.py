@@ -17,7 +17,7 @@ def get_journal_data():
     import pyodbc
     import pandas as pd
     import pandas.io.sql as psql
-    import request
+    from flask import Flask, request, jsonify
       
     headers = request.headers
     auth = headers.get("X-Api-Key")
