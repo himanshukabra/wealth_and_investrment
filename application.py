@@ -48,7 +48,7 @@ def check():
 #     return json_final_data
 
 @app.route("/get_all_ledger_heads")
-def get_journal_data(dbname):
+def get_journal_data():
     
     import pyodbc
     import pandas as pd
@@ -58,8 +58,11 @@ def get_journal_data(dbname):
     headers = request.headers
     auth = headers.get("X-Api-Key")
     if auth == 'asoidewfoef':  
-           
-       db=dbname
+       
+       data = []
+       data = {'dbname':request.json['dbname']}
+         
+       db=data['dbname']
        user="shsa"
        server="13.127.124.84,6016"
        password="Easeprint#021"
