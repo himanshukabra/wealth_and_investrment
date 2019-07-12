@@ -45,4 +45,4 @@ def get_journal_data():
    
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
 
-   return json_final_data
+    return json_final_data
