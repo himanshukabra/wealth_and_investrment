@@ -42,9 +42,12 @@ def get_journal_data():
        conn.close()
 
        return json_final_data
+   
     else:
+   
        return jsonify({"message": "ERROR: Unauthorized Access"}), 401
 
+   return None
 @app.route("/get_all_ledger_head")
 def get_journal_data():
     
@@ -75,7 +78,7 @@ def get_journal_data():
        return json_final_data
     else:
        return jsonify({"message": "ERROR: Unauthorized Access"}), 401
-   
+    return None
    
 @app.route("/get_ledgers_basis_ledgerhead")
 def get_journal_data(ledger_head_id):
@@ -109,3 +112,4 @@ def get_journal_data(ledger_head_id):
     else:
        return jsonify({"message": "ERROR: Unauthorized Access"}), 401
    
+   return None
