@@ -111,7 +111,7 @@ def get_ledger_master():
        except Exception as e:
            print(e)
 
-       query = "select tableid,ledgername,ledgerhead from m_ledgermaster where ledgerhead = %d"%data['ledgerhead']
+       query = "select tableid,ledgername,ledgerhead from m_ledgermaster where ledgerhead = %s"%data['ledgerhead']
 
        abc = pd.read_sql(query, conn)    
        json_final_data = abc.to_json(orient='records', date_format = 'iso')
