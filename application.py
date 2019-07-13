@@ -153,7 +153,7 @@ def get_ledger():
        except Exception as e:
            print(e)
 
-       query = "USP_R_Ledger 0,%s,%s,%s,%s"%(data['ledgerhead'],data['ledgeraccount'],data['from_date'],data['to_date'])
+       query = "USP_R_Ledger 1,%s,%s,%s,%s"%(data['ledgerhead'],data['ledgeraccount'],data['from_date'],data['to_date'])
 
        abc = pd.read_sql(query, conn)    
        json_final_data = abc.to_json(orient='records', date_format = 'iso')
