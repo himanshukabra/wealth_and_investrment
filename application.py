@@ -99,7 +99,7 @@ def get_ledger_master():
        
        data = []
        data = {'dbname':request.json['dbname']
-               'ledgerhead'request.json['ledgerhead']}
+               'ledgerhead':request.json['ledgerhead']}
          
        db=data['dbname']
        user="shsa"
