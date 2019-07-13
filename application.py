@@ -57,7 +57,7 @@ def get_all_ledger_heads():
       
     headers = request.headers
     auth = headers.get("X-Api-Key")
-    if auth == 'asoidewfoef':  
+    if auth == 'abcd':  
        
        data = []
        data = {'dbname':request.json['dbname']}
