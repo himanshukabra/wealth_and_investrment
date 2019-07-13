@@ -98,7 +98,7 @@ def get_ledger_master():
     if auth == 'asoidewfoef':  
        
        data = []
-       data = {'dbname':request.json['dbname']
+       data = {'dbname':request.json['dbname'],
                'ledgerhead':request.json['ledgerhead']}
          
        db=data['dbname']
