@@ -140,8 +140,7 @@ def get_ledger():
           data = {'dbname':request.json['dbname'],
                   'ledgerhead':request.json['ledgerhead'],
                   'ledgeraccount':request.json['ledgeraccount'],
-                  'from_date':request.json['from_date'],
-                  'to_date':request.json['to_date']}
+                  'from_date':request.json['from_date']}
 
           db=data['dbname']
           user="shsa"
