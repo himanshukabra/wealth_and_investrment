@@ -140,7 +140,8 @@ def get_ledger():
           data = {'dbname':request.json['dbname'],
                   'ledgerhead':request.json['ledgerhead'],
                   'ledgeraccount':request.json['ledgeraccount'],
-                  'from_date':request.json['from_date']}
+                  'from_date':request.json['from_date'],
+                  'to_date':request.json['to_date']}
 
           db=data['dbname']
           user="shsa"
@@ -152,7 +153,7 @@ def get_ledger():
           except Exception as e:
               print(e)
 
-          query = "exec USP_R_Ledger 1,%s,%s,%s"%(data['ledgerhead'],data['ledgeraccount'],data['from_date'])
+          query = "exec USP_R_Ledger 1,%s,%s,%s,%s"%(data['ledgerhead'],data['ledgeraccount'],data['from_date'],data['to_date'])
 
           abc = pd.read_sql(query, conn)    
           json_final_data = abc.to_json(orient='records', date_format = 'iso')
