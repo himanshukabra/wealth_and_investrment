@@ -127,41 +127,41 @@ def get_ledger_master():
 @app.route("/get_ledger")
 def get_ledger():
     
-    import pyodbc
-    import pandas as pd
-    import pandas.io.sql as psql
-    from flask import Flask, request, jsonify
-      
-    headers = request.headers
-    auth = headers.get("X-Api-Key")
-    if auth == 'asoidewfoef':  
-       
-       data = []
-       data = {'dbname':request.json['dbname'],
-               'ledgerhead':request.json['ledgerhead'],
-               'ledgeraccount':request.json['ledgeraccount'],
-               'from_date':request.json['from_date'],
-               'to_date':request.json['to_date']}
-         
-       db=data['dbname']
-       user="shsa"
-       server="13.127.124.84,6016"
-       password="Easeprint#021"
-       port = "80"
-       try:
-           conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
-       except Exception as e:
-           print(e)
+       import pyodbc
+       import pandas as pd
+       import pandas.io.sql as psql
+       from flask import Flask, request, jsonify
 
-       query = "exec USP_R_Ledger 1,%s,%s,%s,%s"%(data['ledgerhead'],data['ledgeraccount'],data['from_date'],data['to_date'])
+       headers = request.headers
+       auth = headers.get("X-Api-Key")
+       if auth == 'asoidewfoef':  
 
-       abc = pd.read_sql(query, conn)    
-       json_final_data = abc.to_json(orient='records', date_format = 'iso')
+          data = []
+          data = {'dbname':request.json['dbname'],
+                  'ledgerhead':request.json['ledgerhead'],
+                  'ledgeraccount':request.json['ledgeraccount'],
+                  'from_date':request.json['from_date'],
+                  'to_date':request.json['to_date']}
 
-       conn.close()
-   
-    else:
-   
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+          db=data['dbname']
+          user="shsa"
+          server="13.127.124.84,6016"
+          password="Easeprint#021"
+          port = "80"
+          try:
+              conn = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+          except Exception as e:
+              print(e)
 
-    return json_final_data
+          query = "exec USP_R_Ledger 1,%s,%s,%s,%s"%(data['ledgerhead'],data['ledgeraccount'],data['from_date'])
+
+          abc = pd.read_sql(query, conn)    
+          json_final_data = abc.to_json(orient='records', date_format = 'iso')
+
+          conn.close()
+
+       else:
+
+          json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+
+       return json_final_data
