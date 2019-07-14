@@ -55,33 +55,25 @@ def get_all_ledger_heads():
     import pandas.io.sql as psql
     from flask import Flask, request, jsonify
       
-    headers = request.headers
-    auth = headers.get("X-Api-Key")
-    if auth == 'abcd':  
-       
-       data = []
-       data = {'dbname':request.json['dbname']}
-         
-       db=data['dbname']
-       user="shsa"
-       server="13.127.124.84,6016"
-       password="Easeprint#021"
-       port = "80"
-       try:
-           conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
-       except Exception as e:
-           print(e)
+    data = []
+    data = {'dbname':request.json['dbname']}
 
-       query = "select * from m_main_ledger_head"
+    db=data['dbname']
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+    except Exception as e:
+        print(e)
 
-       abc = pd.read_sql(query, conn)    
-       json_final_data = abc.to_json(orient='records', date_format = 'iso')
+    query = "select * from m_main_ledger_head"
 
-       conn.close()
-   
-    else:
-   
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+    abc = pd.read_sql(query, conn)    
+    json_final_data = abc.to_json(orient='records', date_format = 'iso')
+
+    conn.close() 
 
     return json_final_data
 
