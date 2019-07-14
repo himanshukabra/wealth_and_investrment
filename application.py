@@ -55,6 +55,8 @@ def get_all_ledger_heads():
     import pandas.io.sql as psql
     from flask import Flask, request, jsonify
       
+    request.method = 'GET'
+      
     data = []
     data = {'dbname':request.json['dbname']}
 
