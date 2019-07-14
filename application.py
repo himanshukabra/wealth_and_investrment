@@ -77,7 +77,7 @@ def get_all_ledger_heads():
 
     return json_final_data
 
-@app.route("/get_ledger_master")
+@app.route('/get_ledger_master', methods=['POST'])
 def get_ledger_master():
     
     import pyodbc
