@@ -148,7 +148,7 @@ def get_ledger():
           password="Easeprint#021"
           port = "80"
           try:
-              conn = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+              conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
           except Exception as e:
               print(e)
 
