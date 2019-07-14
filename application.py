@@ -47,15 +47,13 @@ def check():
 
 #     return json_final_data
 
-@app.route("/get_all_ledger_heads")
+@app.route('/get_all_ledger_heads', methods=['GET'])
 def get_all_ledger_heads():
     
     import pyodbc
     import pandas as pd
     import pandas.io.sql as psql
     from flask import Flask, request, jsonify
-      
-    request.method = 'GET'
       
     data = []
     data = {'dbname':request.json['dbname']}
