@@ -47,7 +47,7 @@ def check():
 
 #     return json_final_data
 
-@app.route('/get_all_ledger_heads', methods=['GET'])
+@app.route('/get_all_ledger_heads', methods=['POST'])
 def get_all_ledger_heads():
     
     import pyodbc
