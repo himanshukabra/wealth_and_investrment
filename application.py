@@ -68,7 +68,8 @@ def get_all_ledger_heads():
     except Exception as e:
         print(e)
 
-    query = "select * from m_main_ledger_head"
+    #query = "select * from m_main_ledger_head"
+    query = "select 0 as MainLeadgerHeadId,'--Select One--' as MainLedgerHeads,0 as LedgerHeadId,0 as OrderNo,'false' as IsReserved union select * from m_main_ledger_head"
 
     abc = pd.read_sql(query, conn)    
     json_final_data = abc.to_json(orient='records', date_format = 'iso')
@@ -103,7 +104,7 @@ def get_ledger_master():
        except Exception as e:
            print(e)
 
-       query = "select tableid,ledgername,ledgerhead from m_ledgermaster where ledgerhead = %s"%data['ledgerhead']
+       query = "select 0 as tableid,'--Select One--' as ledgernam," + str(data['ledgerhead']) + " as ledgerhead union select tableid,ledgername,ledgerhead from m_ledgermaster where ledgerhead = %s"%data['ledgerhead']
 
        abc = pd.read_sql(query, conn)    
        json_final_data = abc.to_json(orient='records', date_format = 'iso')
