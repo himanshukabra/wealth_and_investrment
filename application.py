@@ -296,7 +296,7 @@ def get_holding_with_gain_loss():
                 return filesdata    
 
 
-        data = get_data()
+        data = abc
 
         #### mutual fund scheme calculation
 
