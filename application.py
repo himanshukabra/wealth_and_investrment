@@ -209,11 +209,11 @@ def get_holding_with_gain_loss():
         from bsedata.bse import BSE
         pd.options.mode.chained_assignment = None    
 
-       headers = request.headers
-       auth = headers.get("X-Api-Key")
-       if auth == 'asoidewfoef':  
-          data = []
-          data = {'dbname':request.json['dbname']}      
+        headers = request.headers
+        auth = headers.get("X-Api-Key")
+        if auth == 'asoidewfoef':  
+           data = []
+           data = {'dbname':request.json['dbname']}      
 
            db=data['dbname']
            user="shsa"
