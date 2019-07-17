@@ -3,3 +3,5 @@ pyodbc==4.0.26
 pandas==0.24.2
 waitress==1.0.1
 requests==2.22.0
+bsedata==0.3.1
+nsetools==1.0.10
