@@ -213,8 +213,7 @@ def get_holding_with_gain_loss():
        auth = headers.get("X-Api-Key")
        if auth == 'asoidewfoef':  
           data = []
-          data = {'dbname':request.json['dbname'],
-                     'ledgerhead':request.json['ledgerhead']}      
+          data = {'dbname':request.json['dbname']}      
 
            db=data['dbname']
            user="shsa"
