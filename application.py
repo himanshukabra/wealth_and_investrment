@@ -379,6 +379,8 @@ def get_holding_with_gain_loss():
 
         frames = [equity_final_data, mf_final_data, bond_final_data]
         combined_holding_data = pd.concat(frames)
+      
+        json_final_data = combined_holding_data.to_json(orient='records', date_format = 'iso')
 
-        return combined_holding_data   
+        return json_final_data   
   
