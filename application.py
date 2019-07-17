@@ -397,7 +397,6 @@ def get_holding_with_gain_loss():
            json_final_data = combined_holding_data.to_json(orient='records', date_format = 'iso')
 
            return json_final_data   
-      else:
-           
+        else:           
            json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
            return json_final_data   
