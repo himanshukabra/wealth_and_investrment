@@ -393,7 +393,7 @@ def get_holding_with_gain_loss():
            combined_holding_data = combined_holding_data.rename(columns={'date': 'valuation_date'}) 
            combined_holding_data = combined_holding_data.rename(columns={'gain/loss': 'gainloss'}) 
            combined_holding_data = combined_holding_data.rename(columns={'absolute_gain(%)': 'absolute_gain'})  
-           combined_holding_data = combined_holding_data[['product_name','scrip_code','Particulars','quantity','cost_price','total_cost','current_price','valuation_date','current_value','gain/loss','absolute_gain(%)']]
+           combined_holding_data = combined_holding_data[['product_name','scrip_code','Particulars','quantity','cost_price','total_cost','current_price','valuation_date','current_value','gainloss','absolute_gain']]
            combined_holding_data = combined_holding_data.round({'quantity' : 4,'cost_price' : 2,'gainloss' : 2,'absolute_gain':2,'total_cost':2,'current_price':2,'current_value':2})    
 
            json_final_data = combined_holding_data.to_json(orient='records', date_format = 'iso')
