@@ -550,8 +550,8 @@ def insert_data_cash_book():
        except Exception as e:
            print(e)
        cur = conn.cursor()
-       query = "exec Usp_T_CashBook 1,0,%s,'','',%d,%d,'',%s,0,'',%s,%s,%s,%s,%d,%d,%d,%s,%s,%s,'','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'],data['createddate'])
-
+       #query = "exec Usp_T_CashBook 1,0,%s,'','',%d,%d,'',%s,0,'',%s,%s,%s,%s,%d,%d,%d,%s,%s,%s,'','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'],data['createddate'])
+       query = "exec Usp_T_CashBook 1,0,'2019-03-31','','',1,7125,'','D',0,'','test now','test now','test now','test now',1.00,21,7119,'HIMANSHU','HIMANSHU','2019-03-31','','',''"
        cur.execute(query)
 
        cur.commit()
