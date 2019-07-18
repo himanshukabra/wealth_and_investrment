@@ -512,4 +512,53 @@ def get_ledger_opening_balance():
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
        return json_final_data   
-   
+
+@app.route('/insert_data_cash_book', methods=['POST'])
+def insert_data_cash_book():
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+     
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+  
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'date':request.json['date'],
+               'account_ledger':request.json['account_ledger'],
+               'account_head':request.json['account_head'],
+               'drcr':request.json['drcr'],
+               'vouchernumber':request.json['vouchernumber'],
+               'standard_description':request.json['standard_description'],
+               'amount':request.json['amount'],
+               'ledger1':request.json['ledger1'],
+               'ledgerhead':request.json['ledgerhead'],
+               'computername':request.json['computername'],
+               'createdby':request.json['createdby'],
+               'createddate':request.json['createddate']}
+
+       db=data['dbname']
+       user="shsa"
+       server="13.127.124.84,6016"
+       password="Easeprint#021"
+       port = "80"
+       try:
+           conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password+ ';' + 'autocommit=True')
+       except Exception as e:
+           print(e)
+    
+       query = "exec Usp_T_CashBook 1,0,%s,'','',%d,%d,'',%s,0,'',%s,%s,%s,%s,%s,%d,%d,%s,%s,%s,'','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'],data['createddate']
+
+       cur.execute(query)
+
+       cur.commit()
+
+       conn.close() 
+       return "Done"
+  
+    else:           
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       return json_final_data       
