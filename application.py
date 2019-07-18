@@ -545,8 +545,7 @@ def insert_data_cash_book():
                'ledger1':request.json['ledger1'],
                'ledgerhead':request.json['ledgerhead'],
                'computername':request.json['computername'],
-               'createdby':request.json['createdby'],
-               'createddate':request.json['createddate']}
+               'createdby':request.json['createdby']}
 
        db=data['dbname']
        user="shsa"
@@ -559,7 +558,7 @@ def insert_data_cash_book():
            print(e)
        cur = conn.cursor()
       
-       query = "exec Usp_T_CashBook 1,0,%s,'','',%s,%s,'',%s,4,'',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'],data['createddate'])
+       query = "exec Usp_T_CashBook 1,0,%s,'','',%s,%s,'',%s,4,'',%s,%s,%s,%s,%s,%s,%s,%s,%s,'','','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'])
        print(query)
        #query = "exec Usp_T_CashBook 1,0,'2019-03-31','','',1,7125,'','D',4,'','test now','test now','test now','test now',1.00,21,7119,'HIMANSHU','HIMANSHU','2019-03-31','','',''"
        cur.execute(query)
