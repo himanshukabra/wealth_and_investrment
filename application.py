@@ -567,7 +567,7 @@ def insert_data_cash_book():
        cur.commit()
 
        conn.close() 
-       return "Done"
+       return query
   
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
