@@ -562,11 +562,11 @@ def insert_data_cash_book():
        print(query)
        #query = "exec Usp_T_CashBook 1,0,'2019-03-31','','',1,7125,'','D',4,'','test now','test now','test now','test now',1.00,21,7119,'HIMANSHU','HIMANSHU','2019-03-31','','',''"
        cur.execute(query)
-
+       return_value = cur.fetchval()
        cur.commit()
 
        conn.close() 
-       return query
+       return return_value
   
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
