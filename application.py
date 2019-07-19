@@ -566,7 +566,7 @@ def insert_data_cash_book():
        rows = cur.fetchall()
 
        conn.close() 
-       return return_value
+       return rows
   
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
