@@ -563,9 +563,15 @@ def insert_data_cash_book():
        #query = "exec Usp_T_CashBook 1,0,'2019-03-31','','',1,7125,'','D',4,'','test now','test now','test now','test now',1.00,21,7119,'HIMANSHU','HIMANSHU','2019-03-31','','',''"
        a = cur.execute(query)
        cur.commit()
-
+       
+      check_e = a.rowcount
+       if check_e>=1:
+           val = "Saved Successfully"
+       else:
+           val = "Data not saved"
+       
        conn.close() 
-       return a
+       return jsonify({"message": val}), 200
   
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
