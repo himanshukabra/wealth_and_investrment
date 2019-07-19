@@ -561,12 +561,11 @@ def insert_data_cash_book():
        query = "exec Usp_T_CashBook 1,0,%s,'','',%s,%s,'',%s,4,'',%s,%s,%s,%s,%s,%s,%s,%s,%s,'','','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'])
        print(query)
        #query = "exec Usp_T_CashBook 1,0,'2019-03-31','','',1,7125,'','D',4,'','test now','test now','test now','test now',1.00,21,7119,'HIMANSHU','HIMANSHU','2019-03-31','','',''"
-       cur.execute(query)
+       a = cur.execute(query)
        cur.commit()
-       rows = cur.fetchall()
 
        conn.close() 
-       return rows
+       return a
   
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
