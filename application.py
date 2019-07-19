@@ -564,7 +564,7 @@ def insert_data_cash_book():
        a = cur.execute(query)
        cur.commit()
        
-      check_e = a.rowcount
+       check_e = a.rowcount
        if check_e>=1:
            val = "Saved Successfully"
        else:
