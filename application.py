@@ -546,7 +546,7 @@ def insert_data_cash_book():
                'ledgerhead':request.json['ledgerhead'],
                'computername':request.json['computername'],
                'createdby':request.json['createdby'],
-               'entry_type':request.json['entry_type]}
+               'entry_type':request.json['entry_type']}
 
        db=data['dbname']
        user="shsa"
