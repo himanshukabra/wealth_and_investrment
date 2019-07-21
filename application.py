@@ -545,7 +545,8 @@ def insert_data_cash_book():
                'ledger1':request.json['ledger1'],
                'ledgerhead':request.json['ledgerhead'],
                'computername':request.json['computername'],
-               'createdby':request.json['createdby']}
+               'createdby':request.json['createdby'],
+               'entry_type':request.json['entry_type]}
 
        db=data['dbname']
        user="shsa"
@@ -558,11 +559,19 @@ def insert_data_cash_book():
            print(e)
        cur = conn.cursor()
       
-       query = "exec Usp_T_CashBook 1,0,%s,'','',%s,%s,'',%s,4,'',%s,%s,%s,%s,%s,%s,%s,%s,%s,'','','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'])
-       print(query)
+       if data['entry_type]=="CashBook":                                 
+           query = "exec Usp_T_CashBook 1,0,%s,'','',%s,%s,'',%s,4,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'','','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['vouchernumber'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'])
+       elif data['entry_type]=="BankBook":
+           if data['drcr']=="P":
+               data['drcr']=="I"
+           elif data['drcr']=="R":
+               data['drcr']=="R"
+           query = "exec Usp_T_BankBook 1,0,%s,'','',%s,%s,%s,4,%s,%s,%s,%s,%s,%s,%s,%s,'',%s,%s,'','','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['vouchernumber'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'])      
+       
        #query = "exec Usp_T_CashBook 1,0,'2019-03-31','','',1,7125,'','D',4,'','test now','test now','test now','test now',1.00,21,7119,'HIMANSHU','HIMANSHU','2019-03-31','','',''"
        a = cur.execute(query)
        cur.commit()
+       
        check_e = a.rowcount
        if check_e>=1:
            val = "Saved Successfully"
