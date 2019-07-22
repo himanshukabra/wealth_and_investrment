@@ -128,7 +128,7 @@ def get_scrip_opening(dbname,scrip_id,product_id,folio):
     except Exception as e:
         print(e)
 
-    query = "select product_id,scrip_Id,folio_number,sum(quantity) as closing_quanity from ( select product_id,script_id as scrip_Id,isnull(folio_number,0) as folio_number, sum(case when transaction_type = 'Buy' then quantity when transaction_type = 'Sell' then -quantity end) as quantity from t_transaction_register where script_id = %s and product_id = %s and folio_number = %s group by product_id,script_id,isnull(folio_number,0) union select product_id,scrip_Id,isnull(folio_number,'0') as folio_number,sum(quantity) as quantity from t_opening_balance_products where scrip_id = %s and product_id = %s and folio_number = %s group by product_id,scrip_Id,isnull(folio_number,'0') ) t group by product_id,scrip_Id,folio_number"%(scrip_id,product_id,folio,scrip_id,product_id,folio)
+    query = "select product_id,scrip_Id,folio_number,sum(quantity) as closing_quanity from ( select product_id,script_id as scrip_Id,isnull(folio_number,0) as folio_number, sum(case when transaction_type = 'Buy' then quantity when transaction_type = 'Sell' then -quantity end) as quantity from t_transaction_register where script_id = %s and product_id = %s and folio_number = '%s' group by product_id,script_id,isnull(folio_number,0) union select product_id,scrip_Id,isnull(folio_number,'0') as folio_number,sum(quantity) as quantity from t_opening_balance_products where scrip_id = %s and product_id = %s and folio_number = '%s' group by product_id,scrip_Id,isnull(folio_number,'0') ) t group by product_id,scrip_Id,folio_number"%(scrip_id,product_id,folio,scrip_id,product_id,folio)
 
     abc = pd.read_sql(query, conn)
 
