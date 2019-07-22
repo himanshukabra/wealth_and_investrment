@@ -648,3 +648,20 @@ def get_demat_list():
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
+
+@app.route("/get_scrip_opening_balance", methods=['POST'])
+def get_scrip_opening_balance():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'scrip_id':request.json['scrip_id'],
+               'product_id':request.json['product_id'],
+               'folio_number':request.json['folio_number'],}   
+       json_final_data = get_demat(data['dbname'],data['scrip_id'],data['product_id'],data['folio_number'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
