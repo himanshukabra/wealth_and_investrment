@@ -1,5 +1,10 @@
+from transaction_entry import get_product_list 
+
 from flask import Flask
 app = Flask(__name__)
+
+app.register_blueprint(get_product_list)
+
 @app.route("/home")
 def home():
    return "Hello Himanshu"
