@@ -1,7 +1,7 @@
 from flask import Flask
 app = Flask(__name__)
 
-@app.route('https://ydswealthandinvestment.azurewebsites.net/get_product_list', methods=['POST'])
+@app.route('/get_product_list', methods=['POST'])
 def get_product_list():
     
     import pyodbc
