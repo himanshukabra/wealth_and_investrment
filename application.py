@@ -2,6 +2,7 @@ from transaction_entry import get_product
 from transaction_entry import get_scheme
 from transaction_entry import get_demat
 from transaction_entry import get_broker
+from transaction_entry import get_scrip_opening
 
 from flask import Flask
 app = Flask(__name__)
