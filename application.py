@@ -1,4 +1,5 @@
 from transaction_entry import get_product
+from transaction_entry import get_scheme_list
 
 from flask import Flask
 app = Flask(__name__)
@@ -13,20 +14,6 @@ def check():
     The aim of this function is to check if the API is up
     '''
     return 'http 200 - I did it'
-
-@app.route("/get_product_list", methods=['POST'])
-def get_product_list():
-   from flask import Flask, request, jsonify
-   headers = request.headers
-   auth = headers.get("X-Api-Key")
-   if auth == 'asoidewfoef':       
-       data = []
-       data = {'dbname':request.json['dbname']}   
-       json_final_data = get_product(data['dbname'])
-
-   else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
-   return json_final_data
 
 # @app.route("/get_journal_data")
 # def get_journal_data():
@@ -601,3 +588,32 @@ def insert_data_cash_book():
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
        return json_final_data       
+
+@app.route("/get_product_list", methods=['POST'])
+def get_product_list():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname']}   
+       json_final_data = get_product(data['dbname'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/get_scheme_list", methods=['POST'])
+def get_scheme_list():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'product_id':request.json['product_id']}   
+       json_final_data = get_product(data['dbname'],data['product_id'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
