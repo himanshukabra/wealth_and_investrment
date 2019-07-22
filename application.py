@@ -3,8 +3,6 @@ from transaction_entry import get_product
 from flask import Flask
 app = Flask(__name__)
 
-app.register_blueprint(get_product)
-
 @app.route("/home")
 def home():
    return "Hello Himanshu"
@@ -15,6 +13,11 @@ def check():
     The aim of this function is to check if the API is up
     '''
     return 'http 200 - I did it'
+
+@app.route("/get_product_list")
+def get_product_list():
+   abc = get_product()
+   return abc
 
 # @app.route("/get_journal_data")
 # def get_journal_data():
