@@ -16,8 +16,14 @@ def check():
 
 @app.route("/get_product_list", methods=['POST'])
 def get_product_list():
-   abc = get_product()
-   return abc
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+    data = []
+    data = {'dbname':request.json['dbname']}   
+    abc = get_product(data['dbname'])
+    return abc
 
 # @app.route("/get_journal_data")
 # def get_journal_data():
