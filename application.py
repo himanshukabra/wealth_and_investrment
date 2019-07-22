@@ -661,7 +661,7 @@ def get_scrip_opening_balance():
                'scrip_id':request.json['scrip_id'],
                'product_id':request.json['product_id'],
                'folio_number':request.json['folio_number'],}   
-       json_final_data = get_demat(data['dbname'],data['scrip_id'],data['product_id'],data['folio_number'])
+       json_final_data = get_scrip_opening(data['dbname'],data['scrip_id'],data['product_id'],data['folio_number'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
