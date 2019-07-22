@@ -25,9 +25,3 @@ def get_product(dbname):
     conn.close() 
 
     return json_final_data
-
-    else:
-
-    json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
-
-    return json_final_data 
