@@ -1,9 +1,9 @@
-from transaction_entry import get_product_list 
+from transaction_entry import get_product
 
 from flask import Flask
 app = Flask(__name__)
 
-app.register_blueprint(get_product_list)
+app.register_blueprint(get_product)
 
 @app.route("/home")
 def home():
