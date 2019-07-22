@@ -1,3 +1,8 @@
+from flask import Blueprint
+
+account_api = Blueprint('get_product_list', __name__)
+
+@get_product_list.route("/get_product")
 def get_product_list():
     
     import pyodbc
