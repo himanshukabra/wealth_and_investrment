@@ -20,10 +20,13 @@ def get_product_list():
    headers = request.headers
    auth = headers.get("X-Api-Key")
    if auth == 'asoidewfoef':       
-    data = []
-    data = {'dbname':request.json['dbname']}   
-    abc = get_product(data['dbname'])
-    return abc
+       data = []
+       data = {'dbname':request.json['dbname']}   
+       json_final_data = get_product(data['dbname'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
 
 # @app.route("/get_journal_data")
 # def get_journal_data():
