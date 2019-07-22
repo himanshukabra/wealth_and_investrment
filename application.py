@@ -14,7 +14,7 @@ def check():
     '''
     return 'http 200 - I did it'
 
-@app.route("/get_product_list")
+@app.route("/get_product_list", methods=['POST'])
 def get_product_list():
    abc = get_product()
    return abc
