@@ -22,6 +22,7 @@ def get_product_list():
        port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+       
        except Exception as e:
            print(e)
 
