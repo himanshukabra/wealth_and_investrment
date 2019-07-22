@@ -26,7 +26,7 @@ def get_product(dbname):
 
     return json_final_data
 
-def get_scheme_list(dbname,product_id):
+def get_scheme(dbname,product_id):
     
     import pyodbc
     import pandas as pd
