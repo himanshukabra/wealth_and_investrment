@@ -1,5 +1,5 @@
 from transaction_entry import get_product
-from transaction_entry import get_scheme_list
+from transaction_entry import get_scheme
 
 from flask import Flask
 app = Flask(__name__)
@@ -612,7 +612,7 @@ def get_scheme_list():
        data = []
        data = {'dbname':request.json['dbname'],
                'product_id':request.json['product_id']}   
-       json_final_data = get_product(data['dbname'],data['product_id'])
+       json_final_data = get_scheme(data['dbname'],data['product_id'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
