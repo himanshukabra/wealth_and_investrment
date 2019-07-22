@@ -1,5 +1,7 @@
 from transaction_entry import get_product
 from transaction_entry import get_scheme
+from transaction_entry import get_demat
+from transaction_entry import get_broker
 
 from flask import Flask
 app = Flask(__name__)
@@ -613,6 +615,35 @@ def get_scheme_list():
        data = {'dbname':request.json['dbname'],
                'product_id':request.json['product_id']}   
        json_final_data = get_scheme(data['dbname'],data['product_id'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/get_broker_list", methods=['POST'])
+def get_broker_list():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname']}   
+       json_final_data = get_broker(data['dbname'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/get_demat_list", methods=['POST'])
+def get_demat_list():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'broker_id':request.json['broker_id']}   
+       json_final_data = get_demat(data['dbname'],data['broker_id'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
