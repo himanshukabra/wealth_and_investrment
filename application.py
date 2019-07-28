@@ -5,6 +5,7 @@ from transaction_entry import get_broker
 from transaction_entry import get_scrip_opening
 from transaction_entry import get_folios
 from transaction_entry import insert_temp_transaction_register
+from transaction_entry import get_temp_transaction
 
 from flask import Flask
 app = Flask(__name__)
@@ -706,6 +707,22 @@ def insert_temp_transactions():
                'user':request.json['user'],
                'computer_name':request.json['computer_name']}   
        json_final_data = insert_temp_transaction_register(data['dbname'],data['product_id'],data['scrip_id'],data['folio_number'],data['transaction_type'],data['quantity'],data['gross_rate'],data['gross_amount'],data['brokerage'],data['stt'],data['net_rate'],data['user'],data['computer_name'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/get_temp_transaction_data", methods=['POST'])
+def get_temp_transaction_data():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'user_name':request.json['user_name'],
+               'computer_name':request.json['computer_name']}   
+       json_final_data = get_temp_transaction(data['dbname'],data['user_name'],data['computer_name'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
