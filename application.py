@@ -4,6 +4,7 @@ from transaction_entry import get_demat
 from transaction_entry import get_broker
 from transaction_entry import get_scrip_opening
 from transaction_entry import get_folios
+from transaction_entry import insert_temp_transaction_register
 
 from flask import Flask
 app = Flask(__name__)
@@ -679,6 +680,32 @@ def get_scrip_folio_list():
                'scrip_id':request.json['scrip_id'],
                'product_id':request.json['product_id']}   
        json_final_data = get_folios(data['dbname'],data['scrip_id'],data['product_id'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/insert_temp_transactions", methods=['POST'])
+def insert_temp_transactions():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'scrip_id':request.json['scrip_id'],
+               'product_id':request.json['product_id'],
+               'folio_number':request.json['folio_number'],
+               'transaction_type':request.json['transaction_type'],
+               'quantity':request.json['quantity'],
+               'gross_rate':request.json['gross_rate'],
+               'gross_amount':request.json['gross_amount'],
+               'brokerage':request.json['brokerage'],
+               'stt':request.json['stt'],
+               'net_rate':request.json['net_rate'],
+               'user':request.json['user'],
+               'computer_name':request.json['computer_name']}   
+       json_final_data = insert_temp_transaction_register(data['dbname'],data['product_id'],data['scrip_id'],data['folio_number'],data['gross_rate'],data['transaction_type'],data['quantity'],data['gross_rate'],data['gross_amount'],data['brokerage'],data['stt'],data['net_rate'],data['user'],data['computer_name'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
