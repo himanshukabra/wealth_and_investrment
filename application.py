@@ -705,7 +705,7 @@ def insert_temp_transactions():
                'net_rate':request.json['net_rate'],
                'user':request.json['user'],
                'computer_name':request.json['computer_name']}   
-       json_final_data = insert_temp_transaction_register(data['dbname'],data['product_id'],data['scrip_id'],data['folio_number'],data['gross_rate'],data['transaction_type'],data['quantity'],data['gross_rate'],data['gross_amount'],data['brokerage'],data['stt'],data['net_rate'],data['user'],data['computer_name'])
+       json_final_data = insert_temp_transaction_register(data['dbname'],data['product_id'],data['scrip_id'],data['folio_number'],data['transaction_type'],data['quantity'],data['gross_rate'],data['gross_amount'],data['brokerage'],data['stt'],data['net_rate'],data['user'],data['computer_name'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
