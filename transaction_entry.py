@@ -184,7 +184,7 @@ def insert_temp_transaction_register(dbname,product_id,scrip_id,folio_number,tra
     except Exception as e:
         print(e)
     cur = conn.cursor()
-    query = "INSERT INTO [t_transaction_api_temp] ([product_id],[script_id],[folio_number],[rate],[transaction_type],[quantity],[gross_rate],[gross_amount],[brokerage],[stt],[net_rate],[user],[computer_name]) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"%(product_id,scrip_id,folio_number,gross_rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user,computer_name)
+    query = "INSERT INTO [t_transaction_api_temp] ([product_id],[script_id],[folio_number],[rate],[transaction_type],[quantity],[gross_rate],[gross_amount],[brokerage],[stt],[net_rate],[user],[computer_name]) VALUES (%s,%s,'%s',%s,'%s',%s,%s,%s,%s,%s,%s,'%s','%s')"%(product_id,scrip_id,folio_number,gross_rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user,computer_name)
 
     a = cur.execute(query)
     cur.commit()
