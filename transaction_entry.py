@@ -16,7 +16,7 @@ def get_product(dbname):
     except Exception as e:
         print(e)
 
-    query = "select id,products_offered from m_product"
+    query = "select id,products_offered from m_product union select 0,'--Select One--' "
 
     abc = pd.read_sql(query, conn)
 
@@ -44,7 +44,7 @@ def get_scheme(dbname,product_id):
     except Exception as e:
         print(e)
 
-    query = "select * from (select Table_Id,ScripName,Product_Id from M_Equity union select id as tableid,bond_name as scripname,3 as Product_Id from M_Bonds union select Table_Id,Scheme_Name as scripname,Product_Id from M_Mutual_Funds) t where Product_Id = %s"%product_id
+    query = "select * from (select Table_Id,ScripName,Product_Id from M_Equity union select id as tableid,bond_name as scripname,3 as Product_Id from M_Bonds union select Table_Id,Scheme_Name as scripname,Product_Id from M_Mutual_Funds union select 0 as TableId, '--Select One--',%s as product_id ) t where Product_Id = %s"%(product_id,product_id)
 
     abc = pd.read_sql(query, conn)
 
@@ -72,7 +72,7 @@ def get_broker(dbname):
     except Exception as e:
         print(e)
 
-    query = "select id,broker_name,isnull(account_ledger,0) as account_ledger,isnull(demat_id,0) as demat_id from m_broker"
+    query = "select id,broker_name,isnull(account_ledger,0) as account_ledger,isnull(demat_id,0) as demat_id from m_broker union 0 as id, '--Select One--' as broker_name, 0 as account_ledger, 0 as demat_id"
 
     abc = pd.read_sql(query, conn)
 
