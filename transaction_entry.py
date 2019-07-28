@@ -72,7 +72,7 @@ def get_broker(dbname):
     except Exception as e:
         print(e)
 
-    query = "select id,broker_name,isnull(account_ledger,0) as account_ledger,isnull(demat_id,0) as demat_id from m_broker union 0 as id, '--Select One--' as broker_name, 0 as account_ledger, 0 as demat_id"
+    query = "select id,broker_name,isnull(account_ledger,0) as account_ledger,isnull(demat_id,0) as demat_id from m_broker union select 0 as id, '--Select One--' as broker_name, 0 as account_ledger, 0 as demat_id"
 
     abc = pd.read_sql(query, conn)
 
