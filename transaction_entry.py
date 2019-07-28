@@ -225,3 +225,35 @@ def get_temp_transaction(dbname,user,computer_name):
     conn.close() 
 
     return json_final_data
+
+def delete_temp_transaction(dbname,tableid):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+    cur = conn.cursor()
+    query = "delete from t_transaction_api_temp where tableid = %s"%(tableid)
+
+    a = cur.execute(query)
+    cur.commit()
+
+    check_e = a.rowcount
+    if check_e>=1:
+       val = "Deleted Successfully"
+    else:
+       val = "Data not Deleted"
+
+    conn.close() 
+    return jsonify({"message": val}), 200
