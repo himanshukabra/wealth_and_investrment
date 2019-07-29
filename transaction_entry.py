@@ -156,7 +156,7 @@ def get_folios(dbname,scrip_id,product_id):
     except Exception as e:
         print(e)
 
-    query = "select distinct product_id,scrip_id,folio_number from (select product_id,scrip_id,folio_number from T_Opening_Balance_Products union select product_id,script_id as scrip_id,folio_number from t_transaction_register ) t where folio_number is not null and product_id = %s and scrip_id = %s"%(product_id,scrip_id)
+    query = "select distinct product_id,scrip_id,folio_number from (select product_id,scrip_id,folio_number from T_Opening_Balance_Products union select product_id,script_id as scrip_id,folio_number from t_transaction_register ) t where folio_number is not null and product_id = %s and scrip_id = %s union select %s as product_id,%s as scrip_id,'--Select One--' as folio_number"%(product_id,scrip_id,product_id,scrip_id)
 
     abc = pd.read_sql(query, conn)
 
