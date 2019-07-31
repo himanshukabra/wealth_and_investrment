@@ -197,7 +197,7 @@ def insert_temp_transaction_register(dbname,product_id,scrip_id,folio_number,tra
        val = "Data not saved"
 
     conn.close() 
-    return jsonify({"message": val}), 200
+    return jsonify({"response": val}), 200
 
 def get_temp_transaction(dbname,user,computer_name):
     
@@ -257,4 +257,4 @@ def delete_temp_transaction(dbname,tableid):
        val = "Data not Deleted"
 
     conn.close() 
-    return jsonify({"message": val}), 200
+    return jsonify({"response": val}), 200
