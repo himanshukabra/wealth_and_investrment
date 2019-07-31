@@ -258,3 +258,33 @@ def delete_temp_transaction(dbname,tableid):
 
     conn.close() 
     return jsonify({"response": val}), 200
+
+def get_total_for_temp_transaction(dbname,username,computer_name):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+    cur = conn.cursor()
+    query = "select sum(gross_amount) as total_gross_amount,sum(brokerage) as total_brokerage, sum(stt) as total_stt from t_transaction_api_temp where user = '%s' and computer_name = '%s'"%(username,computer_name)
+
+    abc = pd.read_sql(query, conn)
+
+    json_final_data = abc.to_json(orient='records', date_format = 'iso')
+
+    conn.close() 
+
+    return json_final_data
+
+
