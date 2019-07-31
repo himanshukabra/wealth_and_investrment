@@ -277,7 +277,7 @@ def get_total_for_temp_transaction(dbname,username,computer_name):
     except Exception as e:
         print(e)
     cur = conn.cursor()
-    query = "select sum(gross_amount) as total_gross_amount,sum(brokerage) as total_brokerage, sum(stt) as total_stt from t_transaction_api_temp where user = '%s' and computer_name = '%s'"%(username,computer_name)
+    query = "select sum(isnull(gross_amount,0)) as total_gross_amount,sum(isnull(brokerage,0)) as total_brokerage, sum(isnull(stt,0)) as total_stt from t_transaction_api_temp where user = '%s' and computer_name = '%s'"%(username,computer_name)
 
     abc = pd.read_sql(query, conn)
 
