@@ -167,7 +167,7 @@ def get_folios(dbname,scrip_id,product_id):
 
     return json_final_data
 
-def insert_temp_transaction_register(dbname,product_id,scrip_id,folio_number,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user,computer_name):
+def insert_temp_transaction_register(dbname,product_id,scrip_id,folio_number,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user_name,computer_name):
     
     import pyodbc
     import pandas as pd
@@ -185,7 +185,7 @@ def insert_temp_transaction_register(dbname,product_id,scrip_id,folio_number,tra
     except Exception as e:
         print(e)
     cur = conn.cursor()
-    query = "INSERT INTO [t_transaction_api_temp] ([product_id],[script_id],[folio_number],[rate],[transaction_type],[quantity],[gross_rate],[gross_amount],[brokerage],[stt],[net_rate],[user],[computer_name]) VALUES (%s,%s,'%s',%s,'%s',%s,%s,%s,%s,%s,%s,'%s','%s')"%(product_id,scrip_id,folio_number,gross_rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user,computer_name)
+    query = "INSERT INTO [t_transaction_api_temp] ([product_id],[script_id],[folio_number],[rate],[transaction_type],[quantity],[gross_rate],[gross_amount],[brokerage],[stt],[net_rate],[user],[computer_name]) VALUES (%s,%s,'%s',%s,'%s',%s,%s,%s,%s,%s,%s,'%s','%s')"%(product_id,scrip_id,folio_number,gross_rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user_name,computer_name)
 
     a = cur.execute(query)
     cur.commit()
@@ -199,7 +199,7 @@ def insert_temp_transaction_register(dbname,product_id,scrip_id,folio_number,tra
     conn.close() 
     return jsonify({"response": val}), 200
 
-def get_temp_transaction(dbname,user,computer_name):
+def get_temp_transaction(dbname,user_name,computer_name):
     
     import pyodbc
     import pandas as pd
@@ -217,7 +217,7 @@ def get_temp_transaction(dbname,user,computer_name):
     except Exception as e:
         print(e)
 
-    query = "select * from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user,computer_name)
+    query = "select * from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
 
     abc = pd.read_sql(query, conn)
 
@@ -259,7 +259,7 @@ def delete_temp_transaction(dbname,tableid):
     conn.close() 
     return jsonify({"response": val}), 200
 
-def get_total_for_temp_transaction(dbname,username,computer_name):
+def get_total_for_temp_transaction(dbname,user_name,computer_name):
     
     import pyodbc
     import pandas as pd
@@ -277,7 +277,7 @@ def get_total_for_temp_transaction(dbname,username,computer_name):
     except Exception as e:
         print(e)
     cur = conn.cursor()
-    query = "select isnull(sum(isnull(gross_amount,0)),0) as total_gross_amount,isnull(sum(isnull(brokerage,0)),0) as total_brokerage, isnull(sum(isnull(stt,0)),0) as total_stt from t_transaction_api_temp where user = '%s' and computer_name = '%s'"%(username,computer_name)
+    query = "select isnull(sum(isnull(gross_amount,0)),0) as total_gross_amount,isnull(sum(isnull(brokerage,0)),0) as total_brokerage, isnull(sum(isnull(stt,0)),0) as total_stt from t_transaction_api_temp where user = '%s' and computer_name = '%s'"%(user_name,computer_name)
 
     abc = pd.read_sql(query, conn)
 
