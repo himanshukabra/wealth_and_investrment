@@ -7,6 +7,7 @@ from transaction_entry import get_folios
 from transaction_entry import insert_temp_transaction_register
 from transaction_entry import get_temp_transaction
 from transaction_entry import delete_temp_transaction
+from transaction_entry import get_total_for_temp_transaction
 
 from flask import Flask
 app = Flask(__name__)
@@ -739,6 +740,22 @@ def delete_temp_transaction_data():
        data = {'dbname':request.json['dbname'],
                'tableid':request.json['tableid']}   
        json_final_data = delete_temp_transaction(data['dbname'],data['tableid'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/get_total_for_temp_tran", methods=['POST'])
+def get_total_for_temp_tran():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'user':request.json['user'],
+               'computer_name':request.json['computer_name']}   
+       json_final_data = get_total_for_temp_transaction(data['dbname'],data['user'],data['computer_name'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
