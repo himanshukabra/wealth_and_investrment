@@ -315,3 +315,34 @@ def get_product_ledger_list(dbname):
 
     return json_final_data
 
+def insert_data_in_at_from_transaction_entry(dbname,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,ledgerhead1,ledger_account,computer_name,created_by):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+    cur = conn.cursor()
+    query = "exec Usp_T_Insert_in_Account_Transaction 1,0,%s,%s,%s,%s,%s,4,%s,%s,%s,%s,%s,%s,%s,%s,&s,%s,%s,''"%(date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,standard_description,standard_description,standard_description,amount,ledgerhead1,ledger_account,ledger_account,computer_name,created_by) 
+
+    a = cur.execute(query)
+    cur.commit()
+
+    check_e = a.rowcount
+    if check_e>=1:
+       val = "Saved Successfully"
+    else:
+       val = "Data not saved"
+
+    conn.close() 
+    return jsonify({"response": val}), 200
