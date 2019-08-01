@@ -10,6 +10,8 @@ from transaction_entry import delete_temp_transaction
 from transaction_entry import get_total_for_temp_transaction
 from transaction_entry import get_product_ledger_list
 from transaction_entry import insert_data_in_at_from_transaction_entry
+from transaction_entry import insert_final_data_in_transaction_register
+from transaction_entry import get_temp_data_from_transaction_register
 
 from flask import Flask
 app = Flask(__name__)
@@ -804,8 +806,10 @@ def update_account_transaction_for_transaction_entry():
                'demat_id':request.json['demat_id'],
                'reference_number':request.json['reference_number'],
                'remarks':request.json['remarks'],
-              }
-
+               'broker_id':request.json['broker_id'],
+               'demat_id':request.json['demat_id'],
+               'user_name':request.json['user_name']}
+      
        if float(data['gross_amount'])<0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
        elif float(data['gross_amount'])>0:
@@ -818,7 +822,11 @@ def update_account_transaction_for_transaction_entry():
             
        if float(data['other_charges_amount'])>0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],3,data['date'],0,0,'',data['contract_number'],'Other Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['other_charges_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
-          
+      
+       data_from_db = get_temp_data_from_transaction_register(data['dbname'],data['user_name'],data['computer_name'])
+       for i in data_from_db.itertuples():
+           json_final_data = insert_data_in_transaction_register(data['dbname'],data['transaction_date'],data['broker_id'],data['demat_id'],data['contract_number'],data['reference_number'],i[1],i[2],i[3],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[8]+i[9]+i[10],'web',data['user_name'],data['remarks'])
+      
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
          
