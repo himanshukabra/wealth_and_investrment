@@ -708,9 +708,9 @@ def insert_temp_transactions():
                'brokerage':request.json['brokerage'],
                'stt':request.json['stt'],
                'net_rate':request.json['net_rate'],
-               'user':request.json['user'],
+               'user_name':request.json['user_name'],
                'computer_name':request.json['computer_name']}   
-       json_final_data = insert_temp_transaction_register(data['dbname'],data['product_id'],data['scrip_id'],data['folio_number'],data['transaction_type'],data['quantity'],data['gross_rate'],data['gross_amount'],data['brokerage'],data['stt'],data['net_rate'],data['user'],data['computer_name'])
+       json_final_data = insert_temp_transaction_register(data['dbname'],data['product_id'],data['scrip_id'],data['folio_number'],data['transaction_type'],data['quantity'],data['gross_rate'],data['gross_amount'],data['brokerage'],data['stt'],data['net_rate'],data['user_name'],data['computer_name'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
@@ -796,15 +796,40 @@ def update_account_transaction_for_transaction_entry():
                'investment_in_ledger':request.json['investment_in_ledger'],
                'investment_in_ledger_head':request.json['investment_in_ledger_head'],
                'createdby':request.json['createdby'],
-               'computer_name':request.json['computer_name']}
+               'computer_name':request.json['computer_name'],
+               'stt_amount':request.json['stt_amount'],
+               'other_charges_amount':request.json['other_charges_amount'],
+               'round_off_amount':request.json['round_off_amount'],               
+               'stt_ledger':request.json['stt_ledger'],
+               'other_charges_ledger':request.json['other_charges_ledger'],
+               'stt_ledger_head':request.json['stt_ledger_head'],
+               'other_charges_ledger_head':request.json['other_charges_ledger_head'],
+               'round_off_ledger_head':request.json['round_off_ledger_head'],
+               'round_off_ledger':request.json['round_off'],
+               'broker_id':request.json['broker_id'],
+               'demat_id':request.json['demat_id'],
+               'reference_number':request.json['reference_number'],
+               'remarks':request.json['remarks'],
+              }
 
-       if float(data['net_amount'])<0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['net_amount'])),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
-       elif float(data['net_amount'])>0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['investment_in_ledger_head'],data['investment_in_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['net_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
-       elif float(data['net_amount'])==0:
+       if float(data['gross_amount'])<0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
+       elif float(data['gross_amount'])>0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['investment_in_ledger_head'],data['investment_in_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
+       elif float(data['gross_amount'])==0:
             json_final_data = jsonify({"message": "ERROR: net amount cannot be zero "}), 200
 
+       if float(data['stt_amount'])>0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['stt_ledger_head'],data['stt_ledger'],'',data['contract_number'],'Securities Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['stt_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
+            
+       if float(data['other_charges_amount'])>0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['other_charges_ledger_head'],data['other_charges_ledger'],'',data['contract_number'],'Other Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['other_charges_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
+
+       if float(data['round_off_amount'])<0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Rounding off difference adjusted for contract number '+str(data['contract_number']),abs(float(data['round_off_amount'])),data['round_off_ledger_head'],data['round_off_ledger'],data['computer_name'],data['createdby'])
+       elif float(data['round_off_amount'])>0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['round_off_ledger_head'],data['round_off_ledger'],'',data['contract_number'],'Rounding off difference adjusted for contract number '+str(data['contract_number']),abs(float(data['round_off_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
+           
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
        
