@@ -217,7 +217,7 @@ def get_temp_transaction(dbname,user_name,computer_name):
     except Exception as e:
         print(e)
 
-    query = "select * from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
+    query = "select product_id, script_id as scrip_id, folio_number,rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user as user_name,computer_name from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
 
     abc = pd.read_sql(query, conn)
 
