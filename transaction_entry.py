@@ -315,7 +315,7 @@ def get_product_ledger_list(dbname):
 
     return json_final_data
 
-def insert_data_in_at_from_transaction_entry(dbname,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,ledgerhead1,ledger_account,computer_name,created_by):
+def insert_data_in_at_from_transaction_entry(dbname,sp_type,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,ledgerhead1,ledger_account,computer_name,created_by):
     
     import pyodbc
     import pandas as pd
@@ -333,7 +333,7 @@ def insert_data_in_at_from_transaction_entry(dbname,date_of_transaction,account_
     except Exception as e:
         print(e)
     cur = conn.cursor()
-    query = "exec Usp_T_Insert_in_Account_Transaction 1,0,%s,%s,%s,%s,%s,4,%s,%s,%s,%s,%s,%s,%s,%s,&s,%s,%s,''"%(date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,standard_description,standard_description,standard_description,amount,ledgerhead1,ledger_account,ledger_account,computer_name,created_by) 
+    query = "exec Usp_T_Insert_in_Account_Transaction 1,%s,%s,%s,%s,%s,'%s',4,'%s','%s','%s','%s',%s,%s,%s,%s,'&s','%s','%s',''"%(sp_type,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,standard_description,standard_description,standard_description,amount,ledgerhead1,ledger_account,ledger_account,computer_name,created_by) 
 
     a = cur.execute(query)
     cur.commit()
