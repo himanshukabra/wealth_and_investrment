@@ -8,6 +8,7 @@ from transaction_entry import insert_temp_transaction_register
 from transaction_entry import get_temp_transaction
 from transaction_entry import delete_temp_transaction
 from transaction_entry import get_total_for_temp_transaction
+from transaction_entry import get_product_ledger_list
 
 from flask import Flask
 app = Flask(__name__)
@@ -756,6 +757,20 @@ def get_total_for_temp_tran():
                'user':request.json['user'],
                'computer_name':request.json['computer_name']}   
        json_final_data = get_total_for_temp_transaction(data['dbname'],data['user'],data['computer_name'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/get_product_ledger_data", methods=['POST'])
+def get_product_ledger_data():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname']}   
+       json_final_data = get_product_ledger_list(data['dbname'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
