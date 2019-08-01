@@ -806,8 +806,6 @@ def update_account_transaction_for_transaction_entry():
                'demat_id':request.json['demat_id'],
                'reference_number':request.json['reference_number'],
                'remarks':request.json['remarks'],
-               'broker_id':request.json['broker_id'],
-               'demat_id':request.json['demat_id'],
                'user_name':request.json['user_name']}
       
        if float(data['gross_amount'])<0:
