@@ -807,6 +807,7 @@ def update_account_transaction_for_transaction_entry():
 
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
-       return json_final_data
+       
+    return json_final_data
 
 
