@@ -798,11 +798,11 @@ def update_account_transaction_for_transaction_entry():
                'createdby':request.json['createdby'],
                'computer_name':request.json['computer_name']}
 
-       if data[net_amount]<0:
+       if data['net_amount']<0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(data[net_amount]),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
-       elif data[net_amount]>0:
+       elif data['net_amount']>0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['investment_in_ledger_head'],data['investment_in_ledger'],'D',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(data[net_amount]),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
-       elif data[net_amount]==0:
+       elif data['net_amount']==0:
             json_final_data = jsonify({"message": "ERROR: net amount cannot be zero "}), 200
 
     else:           
