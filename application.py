@@ -9,6 +9,7 @@ from transaction_entry import get_temp_transaction
 from transaction_entry import delete_temp_transaction
 from transaction_entry import get_total_for_temp_transaction
 from transaction_entry import get_product_ledger_list
+from transaction_entry import insert_data_in_at_from_transaction_entry
 
 from flask import Flask
 app = Flask(__name__)
@@ -775,3 +776,37 @@ def get_product_ledger_data():
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
+
+@app.route('/update_account_transaction_for_transaction_entry', methods=['POST'])
+def update_account_transaction_for_transaction_entry():
+    
+    from flask import Flask, request, jsonify
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+  
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'date':request.json['date'],
+               'broker_ledger':request.json['broker_ledger'],
+               'broker_head':request.json['broker_head'],
+               'contract_number':request.json['contract_number'],
+               'net_amount':request.json['net_amount'],
+               'gross_amount':request.json['gross_amount'],
+               'investment_in_ledger':request.json['investment_in_ledger'],
+               'investment_in_ledger_head':request.json['investment_in_ledger_head'],
+               'createdby':request.json['createdby'],
+               'computer_name':request.json['computer_name']}
+
+       if data[net_amount]<0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number'],abs(data[net_amount]),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
+       elif data[net_amount]>0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['investment_in_ledger_head'],data['investment_in_ledger'],'D',data['contract_number'],'Transaction done for contract number '+str(data['contract_number'],abs(data[net_amount]),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
+       elif data[net_amount]=0
+            json_final_data = jsonify({"message": "ERROR: net amount cannot be zero "}), 200
+
+    else:           
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       return json_final_data
+
+
