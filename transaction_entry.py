@@ -346,3 +346,70 @@ def insert_data_in_at_from_transaction_entry(dbname,sp_type,date_of_transaction,
 
     conn.close() 
     return val
+
+def get_temp_data_from_transaction_register(dbname,user_name,computer_name):
+
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    import json
+    import datetime as dt
+    from datetime import datetime
+    from datetime import timedelta
+    from bsedata.bse import BSE
+    pd.options.mode.chained_assignment = None    
+
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + db +';UID=' + user + ';PWD=' + password)
+    except Exception as e:
+        print(e)
+
+    cur = conn.cursor()
+    query = "select product_id, script_id as scrip_id, folio_number,rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user as user_name,computer_name from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
+    abc = pd.read_sql(query, conn)
+    conn.close() 
+
+    return abc
+
+def insert_final_data_in_transaction_register(dbname,date_of_transaction,broker_id,demat_id,contract_number,reference_number,product_id,scrip_id,folio_number,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,net_amount,entry_from_web,created_by,remarks):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    import json
+    import datetime as dt
+    from datetime import datetime
+    from datetime import timedelta
+    from bsedata.bse import BSE
+    pd.options.mode.chained_assignment = None    
+
+    db='HMK2018_2019'
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + db +';UID=' + user + ';PWD=' + password)
+    except Exception as e:
+        print(e)
+
+    cur = conn.cursor()
+
+    query = "exec Usp_T_Insert_in_Transaction_Register 0,%s,%s,'%s','%s','%s',%s,%s,'%s',%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,'%s','%s','%s'"%(broker_id,demat_id,contract_number,reference_number,date_of_transaction,product_id,scrip_id,folio_number,gross_rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,0,net_amount,date_of_transaction,gross_rate,'web',created_by,remarks)
+    a = cur.execute(query)
+    cur.commit()
+
+    check_e = a.rowcount
+    if check_e>=1:
+        val = "Saved Successfully"
+    else:
+        val = "Data not saved"
+
+    conn.close() 
+
+    return val
