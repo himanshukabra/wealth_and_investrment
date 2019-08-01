@@ -800,12 +800,6 @@ def update_account_transaction_for_transaction_entry():
                'stt_amount':request.json['stt_amount'],
                'other_charges_amount':request.json['other_charges_amount'],
                'round_off_amount':request.json['round_off_amount'],               
-               'stt_ledger':request.json['stt_ledger'],
-               'other_charges_ledger':request.json['other_charges_ledger'],
-               'stt_ledger_head':request.json['stt_ledger_head'],
-               'other_charges_ledger_head':request.json['other_charges_ledger_head'],
-               'round_off_ledger_head':request.json['round_off_ledger_head'],
-               'round_off_ledger':request.json['round_off'],
                'broker_id':request.json['broker_id'],
                'demat_id':request.json['demat_id'],
                'reference_number':request.json['reference_number'],
@@ -820,16 +814,11 @@ def update_account_transaction_for_transaction_entry():
             json_final_data = jsonify({"message": "ERROR: net amount cannot be zero "}), 200
 
        if float(data['stt_amount'])>0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['stt_ledger_head'],data['stt_ledger'],'',data['contract_number'],'Securities Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['stt_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],2,data['date'],0,0,'',data['contract_number'],'Securities Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['stt_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
             
        if float(data['other_charges_amount'])>0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['other_charges_ledger_head'],data['other_charges_ledger'],'',data['contract_number'],'Other Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['other_charges_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
-
-       if float(data['round_off_amount'])<0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Rounding off difference adjusted for contract number '+str(data['contract_number']),abs(float(data['round_off_amount'])),data['round_off_ledger_head'],data['round_off_ledger'],data['computer_name'],data['createdby'])
-       elif float(data['round_off_amount'])>0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['round_off_ledger_head'],data['round_off_ledger'],'',data['contract_number'],'Rounding off difference adjusted for contract number '+str(data['contract_number']),abs(float(data['round_off_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
-           
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],3,data['date'],0,0,'',data['contract_number'],'Other Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['other_charges_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
+          
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
          
