@@ -356,7 +356,6 @@ def get_temp_data_from_transaction_register(dbname,user_name,computer_name):
     import datetime as dt
     from datetime import datetime
     from datetime import timedelta
-    from bsedata.bse import BSE
     pd.options.mode.chained_assignment = None    
 
     db=dbname
