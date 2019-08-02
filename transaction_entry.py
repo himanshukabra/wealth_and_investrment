@@ -379,13 +379,10 @@ def insert_final_data_in_transaction_register(dbname,date_of_transaction,broker_
     import pandas as pd
     import pandas.io.sql as psql
     import json
-    import datetime as dt
-    from datetime import datetime
-    from datetime import timedelta
-    from bsedata.bse import BSE
+    from flask import Flask, request, jsonify
     pd.options.mode.chained_assignment = None    
 
-    db='HMK2018_2019'
+    db=dbname
     user="shsa"
     server="13.127.124.84,6016"
     password="Easeprint#021"
