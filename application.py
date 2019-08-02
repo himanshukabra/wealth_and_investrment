@@ -782,6 +782,10 @@ def get_product_ledger_data():
 @app.route('/update_account_transaction_for_transaction_entry', methods=['POST'])
 def update_account_transaction_for_transaction_entry():
     
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    pd.options.mode.chained_assignment = None      
     from flask import Flask, request, jsonify
     headers = request.headers
     auth = headers.get("X-Api-Key")
@@ -821,9 +825,20 @@ def update_account_transaction_for_transaction_entry():
        if float(data['other_charges_amount'])>0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],3,data['date'],0,0,'',data['contract_number'],'Other Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['other_charges_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
       
+       db=data['dbname']
+       user="shsa"
+       server="13.127.124.84,6016"
+       password="Easeprint#021"
+       port = "80"
+       try:
+           conn = pyodbc.connect('DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + db +';UID=' + user + ';PWD=' + password)
+       except Exception as e:
+           print(e) 
+       cur = conn.cursor()
        query = "select product_id, script_id as scrip_id, folio_number,rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,user as user_name,computer_name from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(data['user_name'],data['computer_name'])
        data_from_db = pd.read_sql(query, conn)
-   
+       conn.close()    
+       
        for i in data_from_db.itertuples():
            json_final_data = insert_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],data['demat_id'],data['contract_number'],data['reference_number'],i[1],i[2],i[3],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[8]+i[9]+i[10],'web',data['user_name'],data['remarks'])
       
