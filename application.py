@@ -759,7 +759,7 @@ def get_total_for_temp_tran():
        data = {'dbname':request.json['dbname'],
                'user_name':request.json['user_name'],
                'computer_name':request.json['computer_name']}   
-       json_final_data = get_total_for_temp_transaction(data['dbname'],data['user'],data['computer_name'])
+       json_final_data = get_total_for_temp_transaction(data['dbname'],data['user_name'],data['computer_name'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
