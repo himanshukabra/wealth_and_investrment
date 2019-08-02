@@ -757,7 +757,7 @@ def get_total_for_temp_tran():
    if auth == 'asoidewfoef':       
        data = []
        data = {'dbname':request.json['dbname'],
-               'user':request.json['user'],
+               'user_name':request.json['user_name'],
                'computer_name':request.json['computer_name']}   
        json_final_data = get_total_for_temp_transaction(data['dbname'],data['user'],data['computer_name'])
 
