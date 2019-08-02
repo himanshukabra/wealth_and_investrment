@@ -828,7 +828,7 @@ def update_account_transaction_for_transaction_entry():
        data_from_db = get_temp_data_from_transaction_register(data['dbname'],data['user_name'],data['computer_name'])
             
        for i in data_from_db.itertuples():
-           json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],data['demat_id'],data['contract_number'],data['reference_number'],i[1],i[2],i[3],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[8]+i[9]+i[10],'web',data['user_name'],data['remarks'])
+           json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],data['demat_id'],data['contract_number'],data['reference_number'],i[1],i[2],i[3],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[8]+i[9]+i[10],'web',data['createdby'],data['remarks'])
             
     else:           
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
