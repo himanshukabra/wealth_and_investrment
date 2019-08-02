@@ -305,7 +305,7 @@ def get_product_ledger_list(dbname):
     except Exception as e:
         print(e)
     cur = conn.cursor()
-    query = "select ledgername,tableid as ledger_id from m_ledgermaster where ledgername in ('INVESTMENT IN EQUITY','INTEREST FROM BONDS/DEBENTURES (TAX FREE)','INVESTMENT IN BONDS/DEBENTURES','INVESTMENT IN MUTUAL FUND') and ledgerhead is not null"
+    query = "select ledgername,tableid as ledger_id,ledgerhead from m_ledgermaster where ledgername in ('INVESTMENT IN EQUITY','INTEREST FROM BONDS/DEBENTURES (TAX FREE)','INVESTMENT IN BONDS/DEBENTURES','INVESTMENT IN MUTUAL FUND') and ledgerhead is not null"
 
     abc = pd.read_sql(query, conn)
 
