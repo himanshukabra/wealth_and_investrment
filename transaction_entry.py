@@ -217,7 +217,7 @@ def get_temp_transaction(dbname,user_name,computer_name):
     except Exception as e:
         print(e)
 
-    query = "select tableid, product_id, script_id as scrip_id, folio_number,rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,[user] as user_name,computer_name from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
+    query = "select tableid, t1.product_id, t1.script_id as scrip_id,t.ScripName as scripname,t2.products_offered as product_name,folio_number,rate,transaction_type,quantity,gross_rate,gross_amount,brokerage,stt,net_rate,[user] as user_name,computer_name from t_transaction_api_temp t1 left join(select Table_Id,ScripName,Product_Id from M_Equity union select id as tableid,bond_name as scripname,3 as Product_Id from M_Bonds union select Table_Id,Scheme_Name as scripname,Product_Id from M_Mutual_Funds union select 0 as TableId, '--Select One--',1 as product_id ) t on t.Table_Id = t1.script_id and t.Product_Id = t1.product_id left join m_product t2 on t1.product_id = t2.id where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
 
     abc = pd.read_sql(query, conn)
 
