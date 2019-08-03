@@ -407,3 +407,30 @@ def insert_final_data_in_transaction_register(dbname,date_of_transaction,broker_
     conn.close() 
 
     return val
+
+def delete_temp_transaction_permanently_post_entry(dbname,user_name,computer_name):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+    cur = conn.cursor()
+    query = "delete from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
+
+    a = cur.execute(query)
+    cur.commit()
+
+    conn.close() 
+    return None
+
