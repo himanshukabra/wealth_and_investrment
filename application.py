@@ -12,7 +12,7 @@ from transaction_entry import get_product_ledger_list
 from transaction_entry import insert_data_in_at_from_transaction_entry
 from transaction_entry import insert_final_data_in_transaction_register
 from transaction_entry import get_temp_data_from_transaction_register
-
+from transaction_entry import delete_temp_transaction_permanently_post_entry
 from flask import Flask
 app = Flask(__name__)
 
@@ -829,7 +829,9 @@ def update_account_transaction_for_transaction_entry():
             
        for i in data_from_db.itertuples():
            json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],data['demat_id'],data['contract_number'],data['reference_number'],i[1],i[2],i[3],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[8]+i[9]+i[10],'web',data['createdby'],data['remarks'])
-            
+       
+       delete_temp_transaction_permanently_post_entry(data['dbname'],data['user_name'],data['computer_name'])      
+      
     else:           
        json_final_data = "ERROR: Unauthorized Access"
          
