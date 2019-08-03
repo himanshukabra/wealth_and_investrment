@@ -831,9 +831,9 @@ def update_account_transaction_for_transaction_entry():
            json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],data['demat_id'],data['contract_number'],data['reference_number'],i[1],i[2],i[3],i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[8]+i[9]+i[10],'web',data['createdby'],data['remarks'])
             
     else:           
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       json_final_data = "ERROR: Unauthorized Access"
          
        
-    return json_final_data
+    return jsonify({"response": json_final_data})
 
 
