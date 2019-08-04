@@ -22,4 +22,6 @@ def get_auto_debit_transaction_data(dbname,from_date,to_date):
 
     conn.close()  
 
-    return abc
+    json_final_data = abc.to_json(orient='records', date_format = 'iso')
+    
+    return json_final_data
