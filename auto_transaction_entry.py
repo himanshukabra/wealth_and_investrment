@@ -76,7 +76,7 @@ def get_bank_names(dbname):
     except Exception as e:
         print(e)
 
-    query = "select ledgername,tableid from m_ledgermaster where ledgerhead = 17"
+    query = "select ledgername,tableid from m_ledgermaster where ledgerhead = 17 union select '--Select One--' as ledgername, 0 as tableid"
 
     abc = pd.read_sql(query, conn)
 
