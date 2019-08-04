@@ -15,6 +15,7 @@ from transaction_entry import get_temp_data_from_transaction_register
 from transaction_entry import delete_temp_transaction_permanently_post_entry
 from auto_transaction_entry import get_auto_debit_transaction_data
 from auto_transaction_entry import update_auto_debit_transaction
+from auto_transaction_entry import get_bank_names
 
 from flask import Flask
 app = Flask(__name__)
@@ -902,3 +903,21 @@ def post_auto_transaction_entry():
          
        
     return jsonify({"response": json_final_data})
+
+@app.route("/get_bank_list", methods=['POST'])
+def get_bank_list():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'from_date':request.json['from_date'],
+               'to_date':request.json['to_date']}   
+       json_final_data = get_bank_names(data['dbname'])
+
+   else:
+      
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+         
+   return json_final_data
