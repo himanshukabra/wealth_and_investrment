@@ -14,6 +14,7 @@ from transaction_entry import insert_final_data_in_transaction_register
 from transaction_entry import get_temp_data_from_transaction_register
 from transaction_entry import delete_temp_transaction_permanently_post_entry
 from auto_transaction_entry import get_auto_debit_transaction_data
+from auto_transaction_entry import update_auto_debit_transaction
 
 from flask import Flask
 app = Flask(__name__)
@@ -857,3 +858,47 @@ def get_auto_debit_transactions_list():
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
+
+@app.route('/post_auto_transaction_entry', methods=['POST'])
+def post_auto_transaction_entry():
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    pd.options.mode.chained_assignment = None      
+    from flask import Flask, request, jsonify
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+  
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'auto_debit_table_id':request.json['auto_debit_table_id'],
+               'units':request.json['units'],
+               'gross_rate':request.json['gross_rate'],
+               'gross_amount':request.json['gross_amount'],
+               'net_amount':request.json['net_amount'],
+               'other_charges_amount':request.json['other_charges_amount'],
+               'investment_in_ledger':request.json['investment_in_ledger'],
+               'bank_ledger':request.json['bank_ledger'],               
+               'date':request.json['date'],
+               'scrip_name':request.json['scrip_name'],
+               'computer_name':request.json['computer_name'],
+               'broker_id':request.json['broker_id'],
+               'created_by':request.json['created_by'],
+               'product_id':request.json['product_id'],
+               'scrip_id':request.json['scrip_id'],
+               'folio_number':request.json['folio_number]}
+      
+       if float(data['gross_amount'])>0:
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],0,data['investment_in_ledger'],'',data['auto_debit_table_id'],'PURCHASE OF ' + str(data['scrip_name'])+' - UNITS - 'str(data['units']),abs(float(data['gross_amount'])),0,data['bank_ledger'],data['computer_name'],data['createdby'])           
+           
+       json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],0,data['auto_debit_table_id'],'auto_debit_transaction',data['product_id'],data['scrip_id'],data['folio_number'],'Buy',data['units'],data['gross_rate'],data['gross_amount'],0,0,0,data['net_amount'],'web',data['createdby'],'auto_debit_transaction')
+
+       update_auto_debit_transaction(data['dbname'],data['gross_amount'],data['bank_ledger'],data['date'],data['auto_debit_table_id'])      
+      
+    else:           
+       json_final_data = "ERROR: Unauthorized Access"
+         
+       
+    return jsonify({"response": json_final_data})
