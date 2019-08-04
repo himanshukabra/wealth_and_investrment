@@ -891,7 +891,7 @@ def post_auto_transaction_entry():
                'folio_number':request.json['folio_number']}
       
        if float(data['gross_amount'])>0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],0,data['investment_in_ledger'],'',data['auto_debit_table_id'],'PURCHASE OF ' + str(data['scrip_name'])+' - UNITS - 'str(data['units']),abs(float(data['gross_amount'])),0,data['bank_ledger'],data['computer_name'],data['createdby'])           
+            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],0,data['investment_in_ledger'],'',data['auto_debit_table_id'],'PURCHASE OF ' + str(data['scrip_name'])+' - UNITS - '+str(data['units']),abs(float(data['gross_amount'])),0,data['bank_ledger'],data['computer_name'],data['createdby'])           
            
        json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],0,data['auto_debit_table_id'],'auto_debit_transaction',data['product_id'],data['scrip_id'],data['folio_number'],'Buy',data['units'],data['gross_rate'],data['gross_amount'],0,0,0,data['net_amount'],'web',data['createdby'],'auto_debit_transaction')
 
