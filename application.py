@@ -13,6 +13,8 @@ from transaction_entry import insert_data_in_at_from_transaction_entry
 from transaction_entry import insert_final_data_in_transaction_register
 from transaction_entry import get_temp_data_from_transaction_register
 from transaction_entry import delete_temp_transaction_permanently_post_entry
+from auto_transaction_entry import get_auto_debit_transaction_data
+
 from flask import Flask
 app = Flask(__name__)
 
@@ -838,4 +840,19 @@ def update_account_transaction_for_transaction_entry():
        
     return jsonify({"response": json_final_data})
 
+@app.route("/get_auto_debit_transactions_list", methods=['POST'])
+def get_auto_debit_transactions_list():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'from_date':request.json['from_date'],
+               'to_date':request.json['to_date']}   
+       json_final_data = get_auto_debit_transaction_data(data['dbname'],data['from_date'],data['to_date'])
 
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+         
+   return json_final_data
