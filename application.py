@@ -911,9 +911,7 @@ def get_bank_list():
    auth = headers.get("X-Api-Key")
    if auth == 'asoidewfoef':       
        data = []
-       data = {'dbname':request.json['dbname'],
-               'from_date':request.json['from_date'],
-               'to_date':request.json['to_date']}   
+       data = {'dbname':request.json['dbname']}   
        json_final_data = get_bank_names(data['dbname'])
 
    else:
