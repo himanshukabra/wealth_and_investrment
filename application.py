@@ -912,6 +912,7 @@ def get_bank_list():
    if auth == 'asoidewfoef':       
        data = []
        data = {'dbname':request.json['dbname']}   
+      
        json_final_data = get_bank_names(data['dbname'])
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
