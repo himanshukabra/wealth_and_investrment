@@ -853,6 +853,7 @@ def get_auto_debit_transactions_list():
        json_final_data = get_auto_debit_transaction_data(data['dbname'],data['from_date'],data['to_date'])
 
    else:
+      
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
