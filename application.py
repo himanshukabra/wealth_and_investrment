@@ -913,9 +913,7 @@ def get_bank_list():
        data = []
        data = {'dbname':request.json['dbname']}   
        json_final_data = get_bank_names(data['dbname'])
-
    else:
-      
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
