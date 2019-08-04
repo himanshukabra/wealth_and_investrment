@@ -888,7 +888,7 @@ def post_auto_transaction_entry():
                'created_by':request.json['created_by'],
                'product_id':request.json['product_id'],
                'scrip_id':request.json['scrip_id'],
-               'folio_number':request.json['folio_number]}
+               'folio_number':request.json['folio_number']}
       
        if float(data['gross_amount'])>0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],0,data['investment_in_ledger'],'',data['auto_debit_table_id'],'PURCHASE OF ' + str(data['scrip_name'])+' - UNITS - 'str(data['units']),abs(float(data['gross_amount'])),0,data['bank_ledger'],data['computer_name'],data['createdby'])           
