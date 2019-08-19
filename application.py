@@ -314,7 +314,7 @@ def get_holding_with_gain_loss():
                    val = (row['gain/loss']/row['total_amount'])*100
                return val
 
-            def get_nse_price(scrip_name):
+           def get_nse_price(scrip_name):
                from pandas.io.json import json_normalize
                from nsetools import Nse
                import json
