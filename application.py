@@ -315,24 +315,23 @@ def get_holding_with_gain_loss():
                return val
 
             def get_nse_price(scrip_name):
-                from pandas.io.json import json_normalize
-                from nsetools import Nse
-                import json
-                nse = Nse()
-                import json
-                from pandas.io.json import json_normalize
-                a = nse.is_valid_code(scrip_name)
-                b = str(a)
-                if b == 'False':
-                    filesd = []
-                    filesd=  [[scrip_name,0]]
-                    filesdata = pd.DataFrame(filesd,columns = ['symbol','lastPrice'])
-
+               from pandas.io.json import json_normalize
+               from nsetools import Nse
+               import json
+               nse = Nse()
+               import json
+               from pandas.io.json import json_normalize
+               a = nse.is_valid_code(scrip_name)
+               b = str(a)
+               if b == 'False':
+                   filesd = []
+                   filesd=  [[scrip_name,0]]
+                   filesdata = pd.DataFrame(filesd,columns = ['symbol','lastPrice'])
                 if b == 'True':
-                    q = nse.get_quote(str(scrip_name))
-                    f = json.dumps(q)
-                    json_f = json.loads(f)
-                    filesdata = json_normalize(json_f)
+                   q = nse.get_quote(str(scrip_name))
+                   f = json.dumps(q)
+                   json_f = json.loads(f)
+                   filesdata = json_normalize(json_f)
                   
                 return filesdata
 
