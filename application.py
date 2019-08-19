@@ -327,13 +327,13 @@ def get_holding_with_gain_loss():
                    filesd = []
                    filesd=  [[scrip_name,0]]
                    filesdata = pd.DataFrame(filesd,columns = ['symbol','lastPrice'])
-                if b == 'True':
+               if b == 'True':
                    q = nse.get_quote(str(scrip_name))
                    f = json.dumps(q)
                    json_f = json.loads(f)
                    filesdata = json_normalize(json_f)
                   
-                return filesdata
+               return filesdata
 
            data = abc
 
