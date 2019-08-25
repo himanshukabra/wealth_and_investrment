@@ -1024,7 +1024,8 @@ def test():
            del a['meta']
            my_json_string = json.dumps(a)
            df = pd.read_json(my_json_string)
-           df.data.apply(pd.Series)            
+           df.data.apply(pd.Series)         
+           mf_nav_from_site = df 
            mf_nav_from_site["schemeCode"] = pd.to_numeric(mf_nav_from_site["schemeCode"])
            mutual_fund_data["scrip_code"] = pd.to_numeric(mutual_fund_data["scrip_code"])
            mutual_fund_data["total_amount"] = pd.to_numeric(mutual_fund_data["total_amount"])
