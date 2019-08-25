@@ -927,6 +927,7 @@ def test():
         import pandas.io.sql as psql
         import json
         import datetime as dt
+        from pandas.io.json import json_normalize
         from datetime import datetime
         from datetime import timedelta
         from bsedata.bse import BSE
