@@ -1020,17 +1020,17 @@ def test():
            mf_code_string = replace_last(scheme_code_stirng, ',', ']}')  
            a = json.loads(get_mutual_fund_nav(mf_code_string))
            my_json_string = json.dumps(a)
-           ab = a['data']
-#          mf_nav_from_site = pd.DataFrame.from_dict(ab)
-#            mf_nav_from_site["schemeCode"] = pd.to_numeric(mf_nav_from_site["schemeCode"])
-#            mutual_fund_data["scrip_code"] = pd.to_numeric(mutual_fund_data["scrip_code"])
-#            mutual_fund_data["total_amount"] = pd.to_numeric(mutual_fund_data["total_amount"])
-#            mutual_fund_data["closing_shares"] = pd.to_numeric(mutual_fund_data["closing_shares"])
-#            mf_final_data = pd.merge(mutual_fund_data,mf_nav_from_site,left_on='scrip_code',right_on='schemeCode',how='left')
-#            mf_final_data = mf_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','nav','date']]
-#            mf_final_data['cost_price'] = mf_final_data.apply(calculate_cost, axis =1) 
-#            mf_final_data['current_value'] = mf_final_data.apply(calculate_current_value, axis =1) 
-#            mf_final_data['gain/loss'] = mf_final_data.apply(calculate_gain_loss, axis =1) 
-#            mf_final_data['absolute_gain(%)'] = mf_final_data.apply(calculate_absolute_gain, axis =1) 
-#            mf_final_data = mf_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})
-           return my_json_string
+           ab = my_json_string['data']
+           mf_nav_from_site = pd.DataFrame.from_dict(ab)
+           mf_nav_from_site["schemeCode"] = pd.to_numeric(mf_nav_from_site["schemeCode"])
+           mutual_fund_data["scrip_code"] = pd.to_numeric(mutual_fund_data["scrip_code"])
+           mutual_fund_data["total_amount"] = pd.to_numeric(mutual_fund_data["total_amount"])
+           mutual_fund_data["closing_shares"] = pd.to_numeric(mutual_fund_data["closing_shares"])
+           mf_final_data = pd.merge(mutual_fund_data,mf_nav_from_site,left_on='scrip_code',right_on='schemeCode',how='left')
+           mf_final_data = mf_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','nav','date']]
+           mf_final_data['cost_price'] = mf_final_data.apply(calculate_cost, axis =1) 
+           mf_final_data['current_value'] = mf_final_data.apply(calculate_current_value, axis =1) 
+           mf_final_data['gain/loss'] = mf_final_data.apply(calculate_gain_loss, axis =1) 
+           mf_final_data['absolute_gain(%)'] = mf_final_data.apply(calculate_absolute_gain, axis =1) 
+           mf_final_data = mf_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})
+           return None
