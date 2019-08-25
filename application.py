@@ -1020,7 +1020,7 @@ def test():
            for i in scehme_codes:
                scheme_code_stirng = scheme_code_stirng + '"' + str(i) + '"' + ","
            mf_code_string = replace_last(scheme_code_stirng, ',', ']}')  
-           a = mutual_fund_data.to_dict()
+           a = scehme_codes.to_dict()
 #            ab = a['data']
 #            mf_nav_from_site = pd.DataFrame.from_dict(ab)
 #            mf_nav_from_site["schemeCode"] = pd.to_numeric(mf_nav_from_site["schemeCode"])
