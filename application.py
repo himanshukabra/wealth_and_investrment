@@ -335,11 +335,11 @@ def get_holding_with_gain_loss():
                   
                return filesdata
 
-           data = abc
+           data1 = abc
 
            #### mutual fund scheme calculation
 
-           mutual_fund_data = data.loc[data['product_name']=='Mutual Fund']    
+           mutual_fund_data = data1.loc[data1['product_name']=='Mutual Fund']    
            scehme_codes = mutual_fund_data['scrip_id']
            scheme_code_stirng = '{'+ '"' + 'schemeCodes' + '"' + ":["
            for i in scehme_codes:
@@ -364,7 +364,7 @@ def get_holding_with_gain_loss():
 
            date = (datetime.now() + timedelta(minutes=330)).strftime('%d-%b-%Y')
            overall_data = pd.DataFrame()    
-           equity_data = data.loc[data['product_name']=='Equity'] 
+           equity_data = data1.loc[data1['product_name']=='Equity'] 
            for x in equity_data.itertuples():
                price = get_nse_price(str(x[4]))
                overall_data = overall_data.append(price) 
@@ -386,7 +386,7 @@ def get_holding_with_gain_loss():
            equity_final_data = equity_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})    
 
 
-           bond_data = data.loc[data['product_name']=='Bonds'] 
+           bond_data = data1.loc[data1['product_name']=='Bonds'] 
            bond_scehme_codes = bond_data['scrip_code']
            abc = bond_scehme_codes.to_list()
            b = BSE()
