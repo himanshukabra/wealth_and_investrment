@@ -1021,6 +1021,7 @@ def test():
                scheme_code_stirng = scheme_code_stirng + '"' + str(i) + '"' + ","
            mf_code_string = replace_last(scheme_code_stirng, ',', ']}')  
            a = scehme_codes.to_dict()
+#            a = json.loads(get_mutual_fund_nav(mf_code_string))
 #            ab = a['data']
 #            mf_nav_from_site = pd.DataFrame.from_dict(ab)
 #            mf_nav_from_site["schemeCode"] = pd.to_numeric(mf_nav_from_site["schemeCode"])
@@ -1034,4 +1035,4 @@ def test():
 #            mf_final_data['gain/loss'] = mf_final_data.apply(calculate_gain_loss, axis =1) 
 #            mf_final_data['absolute_gain(%)'] = mf_final_data.apply(calculate_absolute_gain, axis =1) 
 #            mf_final_data = mf_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})
-           return a
+           return mf_code_string
