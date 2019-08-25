@@ -280,10 +280,8 @@ def get_holding_with_gain_loss():
                }
 
                r = requests.post(url,data=(mf_code_string), headers=param)
-
-               abc =r.content
-
-               return abc
+               mf_nav_data =r.content
+               return mf_nav_data
 
            def calculate_current_value(row):
 
