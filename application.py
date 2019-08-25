@@ -1021,7 +1021,7 @@ def test():
            a = json.loads(get_mutual_fund_nav(mf_code_string))
            my_json_string = json.dumps(a)
            mf_nav_from_site = json_normalize(my_json_string['data'])
-           mf_nav_from_site1 - = mf_nav_from_site.to_dict()
+           mf_nav_from_site1 = mf_nav_from_site.to_dict()
 #            ab = my_json_string['data']
 #            mf_nav_from_site = pd.DataFrame.from_dict(ab)
 #            mf_nav_from_site["schemeCode"] = pd.to_numeric(mf_nav_from_site["schemeCode"])
