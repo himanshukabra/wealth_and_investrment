@@ -1025,7 +1025,7 @@ def test():
            my_json_string = json.dumps(a)
            df = pd.read_json(my_json_string)
            mf_data = df.data.apply(pd.Series)         
-           mf_data["schemecode"] = pd.to_numeric(mf_data["schemecode"])
+           mf_data["schemeCode"] = pd.to_numeric(mf_data["schemeCode"])
            mutual_fund_data["scrip_code"] = pd.to_numeric(mutual_fund_data["scrip_code"])
            mutual_fund_data["total_amount"] = pd.to_numeric(mutual_fund_data["total_amount"])
            mutual_fund_data["closing_shares"] = pd.to_numeric(mutual_fund_data["closing_shares"])
