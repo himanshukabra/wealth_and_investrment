@@ -347,10 +347,10 @@ def get_holding_with_gain_loss():
            a = json.loads(get_mutual_fund_nav(mf_code_string))
            ab = a['data']
            mf_nav_from_site = pd.DataFrame.from_dict(ab)
-           mf_nav_from_site["schemeCode"] = pd.to_numeric(mf_nav_from_site["schemeCode"])
-           mutual_fund_data["scrip_code"] = pd.to_numeric(mutual_fund_data["scrip_code"])
-           mutual_fund_data["total_amount"] = pd.to_numeric(mutual_fund_data["total_amount"])
-           mutual_fund_data["closing_shares"] = pd.to_numeric(mutual_fund_data["closing_shares"])
+           mf_nav_from_site['schemeCode'] = pd.to_numeric(mf_nav_from_site['schemeCode'])
+           mutual_fund_data['scrip_code'] = pd.to_numeric(mutual_fund_data['scrip_code'])
+           mutual_fund_data['total_amount'] = pd.to_numeric(mutual_fund_data['total_amount'])
+           mutual_fund_data['closing_shares'] = pd.to_numeric(mutual_fund_data['closing_shares'])
            mf_final_data = pd.merge(mutual_fund_data,mf_nav_from_site,left_on='scrip_code',right_on='schemeCode',how='left')
            mf_final_data = mf_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','nav','date']]
            mf_final_data['cost_price'] = mf_final_data.apply(calculate_cost, axis =1) 
@@ -1029,7 +1029,7 @@ def test():
            mutual_fund_data['scrip_code'] = pd.to_numeric(mutual_fund_data['scrip_code'])
            mutual_fund_data['total_amount'] = pd.to_numeric(mutual_fund_data['total_amount'])
            mutual_fund_data['closing_shares'] = pd.to_numeric(mutual_fund_data['closing_shares'])
-           mf_final_data = pd.merge(mutual_fund_data,df,left_on='scrip_code',right_on='schemeCode',how='left')
+           mf_final_data = pd.merge(mutual_fund_data,mf_data,left_on='scrip_code',right_on='schemeCode',how='left')
            mf_final_data = mf_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','nav','date']]
            mf_final_data['cost_price'] = mf_final_data.apply(calculate_cost, axis =1) 
            mf_final_data['current_value'] = mf_final_data.apply(calculate_current_value, axis =1) 
