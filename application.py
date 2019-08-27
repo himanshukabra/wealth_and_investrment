@@ -1036,4 +1036,5 @@ def test():
            mf_final_data['gain/loss'] = mf_final_data.apply(calculate_gain_loss, axis =1) 
            mf_final_data['absolute_gain(%)'] = mf_final_data.apply(calculate_absolute_gain, axis =1) 
            mf_final_data = mf_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})
-           return None
+           json_final_data = mf_data.to_json(orient='records', date_format = 'iso')
+           return json_final_data
