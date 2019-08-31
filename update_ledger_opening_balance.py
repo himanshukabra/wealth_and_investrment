@@ -26,7 +26,7 @@ def get_ledger_opening(dbname,ledger_id):
     
     return json_final_data
 
-def update_new_opening_balance_for_ledger(dbname,amount_paid,bank_ledger,paid_on,table_id):
+def update_new_opening_balance_for_ledger(dbname,account_ledger,debit_amount,credit_amount):
     
     import pyodbc
     import pandas as pd
@@ -44,7 +44,7 @@ def update_new_opening_balance_for_ledger(dbname,amount_paid,bank_ledger,paid_on
     except Exception as e:
         print(e)
     cur = conn.cursor()
-    query = "update t_auto_debit_transactions set actual_amount_paid = %s, bank_ledger_paid = %s,paid_on_date = convert(date,'%s',103),entry_processed_status = 'yes', entry_processed_date = convert(date, getdate(),103) where tableid=%s"%(amount_paid,bank_ledger,paid_on,table_id)
+    query = "exec Usp_LedgerOpeningBalance 1,0,'',0,%s,%s,0,%s,0,'',0,''"%(account_ledger,debit_amount,credit_amount)
 
     a = cur.execute(query)
     cur.commit()
