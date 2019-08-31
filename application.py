@@ -16,6 +16,8 @@ from transaction_entry import delete_temp_transaction_permanently_post_entry
 from auto_transaction_entry import get_auto_debit_transaction_data
 from auto_transaction_entry import update_auto_debit_transaction
 from auto_transaction_entry import get_bank_names
+from update_ledger_opening_balance import get_ledger_opening
+from update_ledger_opening_balance import update_new_opening_balance_for_ledger
 
 from flask import Flask
 app = Flask(__name__)
@@ -937,6 +939,40 @@ def get_bank_list():
        data = {'dbname':request.json['dbname']}   
       
        json_final_data = get_bank_names(data['dbname'])
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+         
+   return json_final_data
+
+@app.route("/get_ledger_opening_from_master", methods=['POST'])
+def get_ledger_opening_from_master():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'account_ledger':request.json['account_ledger']}   
+      
+       json_final_data = get_ledger_opening(data['dbname'],data['account_ledger'])
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+         
+   return json_final_data
+
+@app.route("/update_opening_to_master", methods=['POST'])
+def update_opening_to_master():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'account_ledger':request.json['account_ledger'],
+               'debit_amount':request.json['debit_amount'].,
+               'credit_amount':request.json['credit_amount']}   
+      
+       json_final_data = update_new_opening_balance_for_ledger(data['dbname'],data['account_ledger'],data['debit_amount'],data['credit_amount'])
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
