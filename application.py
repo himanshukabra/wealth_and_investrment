@@ -899,8 +899,8 @@ def post_auto_transaction_entry():
     auth = headers.get("X-Api-Key")
     if auth == 'asoidewfoef':  
   
-       data = []
-       data = {'dbname':request.json['dbname'],
+       data_json = []
+       data_json = {'dbname':request.json['dbname'],
                'auto_debit_table_id':request.json['auto_debit_table_id'],
                'units':request.json['units'],
                'gross_rate':request.json['gross_rate'],
@@ -916,12 +916,13 @@ def post_auto_transaction_entry():
                'scrip_id':request.json['scrip_id'],
                'folio_number':request.json['folio_number']}
       
-       if float(data['gross_amount'])>0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],0,data['investment_in_ledger'],'',data['auto_debit_table_id'],'PURCHASE OF ' + str(data['scrip_name'])+' - UNITS - '+str(data['units']),abs(float(data['gross_amount'])),0,data['bank_ledger'],data['computer_name'],data['created_by'])           
-           
-       json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],0,data['auto_debit_table_id'],'auto_debit_transaction',data['product_id'],data['scrip_id'],data['folio_number'],'Buy',data['units'],data['gross_rate'],data['gross_amount'],0,0,0,data['gross_amount'],'web',data['created_by'],'auto_debit_transaction')
-
-       update_auto_debit_transaction(data['dbname'],data['gross_amount'],data['bank_ledger'],data['date'],data['auto_debit_table_id'])      
+       array = '['+ data_json + ']'
+       required_data = json.loads(array)
+       for data in required_data:
+             if float(data['gross_amount'])>0:
+             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],0,data['investment_in_ledger'],'',data['auto_debit_table_id'],'PURCHASE OF ' + str(data['scrip_name'])+' - UNITS - '+str(data['units']),abs(float(data['gross_amount'])),0,data['bank_ledger'],data['computer_name'],data['created_by'])           
+             json_final_data = insert_final_data_in_transaction_register(data['dbname'],data['date'],data['broker_id'],0,data['auto_debit_table_id'],'auto_debit_transaction',data['product_id'],data['scrip_id'],data['folio_number'],'Buy',data['units'],data['gross_rate'],data['gross_amount'],0,0,0,data['gross_amount'],'web',data['created_by'],'auto_debit_transaction')
+             update_auto_debit_transaction(data['dbname'],data['gross_amount'],data['bank_ledger'],data['date'],data['auto_debit_table_id'])      
       
     else:           
        json_final_data = "ERROR: Unauthorized Access"
@@ -973,6 +974,7 @@ def update_opening_to_master():
                'credit_amount':request.json['credit_amount']}   
       
        json_final_data = update_new_opening_balance_for_ledger(data['dbname'],data['account_ledger'],data['debit_amount'],data['credit_amount'])
+       json_final_data = jsonify({"message": json_final_data}), 200
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
