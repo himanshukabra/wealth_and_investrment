@@ -969,7 +969,7 @@ def update_opening_to_master():
        data = []
        data = {'dbname':request.json['dbname'],
                'account_ledger':request.json['account_ledger'],
-               'debit_amount':request.json['debit_amount'],,
+               'debit_amount':request.json['debit_amount'],
                'credit_amount':request.json['credit_amount']}   
       
        json_final_data = update_new_opening_balance_for_ledger(data['dbname'],data['account_ledger'],data['debit_amount'],data['credit_amount'])
