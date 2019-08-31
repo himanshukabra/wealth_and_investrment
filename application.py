@@ -974,7 +974,7 @@ def update_opening_to_master():
                'credit_amount':request.json['credit_amount']}   
       
        json_final_data = update_new_opening_balance_for_ledger(data['dbname'],data['account_ledger'],data['debit_amount'],data['credit_amount'])
-       json_final_data = jsonify({"message": json_final_data}), 200
+
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
