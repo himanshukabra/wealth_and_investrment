@@ -1,4 +1,4 @@
-def get_opening(dbname,ledger_id):
+def get_ledger_opening(dbname,ledger_id):
 
     import pyodbc
     import pandas as pd
