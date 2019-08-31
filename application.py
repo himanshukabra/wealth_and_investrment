@@ -18,6 +18,8 @@ from auto_transaction_entry import update_auto_debit_transaction
 from auto_transaction_entry import get_bank_names
 from update_ledger_opening_balance import get_ledger_opening
 from update_ledger_opening_balance import update_new_opening_balance_for_ledger
+from journal_entry import get_auto_serial_number
+from journal_entry import insert_data_in_jornal
 
 from flask import Flask
 app = Flask(__name__)
