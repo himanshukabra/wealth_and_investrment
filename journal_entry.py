@@ -151,3 +151,4 @@ def insert_journal(dbname,voucher_number,auto_serial_number,user_name,computer_n
 
     conn.close() 
     return jsonify({"response": val}), 200
+
