@@ -1062,4 +1062,4 @@ def insert_in_journal_entry():
        json_final_data = "ERROR: Unauthorized Access"
          
        
-    return jsonify({"response": json_final_data,"query":query})
+    return jsonify({"response": json_final_data})
