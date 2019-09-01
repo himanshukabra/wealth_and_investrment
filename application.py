@@ -1035,7 +1035,8 @@ def insert_in_journal_entry():
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
            print(e)
-
+       
+       cur = conn.cursor()
        data_from_db = pd.DataFrame()
        data_from_db = get_temp_journal_transaction_as_dataframe(data['dbname'],data['createdby'],data['computername'])
        
@@ -1048,9 +1049,9 @@ def insert_in_journal_entry():
 
            check_e = a.rowcount
            if check_e>=1:
-               val = "Saved Successfully"
+               json_final_data = "Saved Successfully"
            else:
-               val = "Data not Saved"       
+               json_final_data = "Data not Saved"       
       
        #delete_temp_transaction_permanently_post_entry(data['dbname'],data['user_name'],data['computer_name'])      
       
