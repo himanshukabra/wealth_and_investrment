@@ -24,6 +24,7 @@ from journal_entry import delete_temp_journal_entry
 from journal_entry import get_temp_journal_transaction
 from journal_entry import insert_journal
 
+
 from flask import Flask
 app = Flask(__name__)
 
