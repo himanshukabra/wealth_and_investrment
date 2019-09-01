@@ -1025,7 +1025,7 @@ def insert_in_journal_entry():
                'computername':request.json['computername']}
       
        data_from_db = pd.DataFrame()
-       data_from_db = get_temp_journal_transaction_data(data['dbname'],data['createdby'],data['computername'])
+       data_from_db = get_temp_journal_transaction(data['dbname'],data['createdby'],data['computername'])
        
        asn = get_auto_serial_number(data['dbname'])
          
