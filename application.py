@@ -21,6 +21,7 @@ from update_ledger_opening_balance import update_new_opening_balance_for_ledger
 from journal_entry import get_auto_serial_number
 from journal_entry import insert_data_in_temp_journal
 from journal_entry import delete_temp_journal_entry
+from journal_entry import get_temp_journal_transaction
 
 from flask import Flask
 app = Flask(__name__)
@@ -983,6 +984,22 @@ def delete_temp_journal_transaction():
                'tableid':request.json['tableid']}   
       
        json_final_data = delete_temp_journal_entry(data['dbname'],data['tableid'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/get_temp_journal_transaction_data", methods=['POST'])
+def get_temp_journal_transaction_data():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'user_name':request.json['user_name'],
+               'computer_name':request.json['computer_name']}   
+       json_final_data = get_temp_journal_transaction(data['dbname'],data['user_name'],data['computer_name'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
