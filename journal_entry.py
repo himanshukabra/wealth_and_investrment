@@ -119,3 +119,35 @@ def get_temp_journal_transaction(dbname,user_name,computer_name):
     conn.close() 
 
     return json_final_data
+
+def insert_journal(dbname,voucher_number,auto_serial_number,user_name,computer_name):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+
+    query = "insert into T_Journal (date,AccountHead,accountledger,drcr,autoserailnumber,voucher_number,standarddescription1, standarddescription2,amount,computername,createdby,createddate) values ('%s',%s,%s,'%s','%s','%s','%s','%s',%s,'%s','%s','%s','%s')"%(i[2],i[3],i[4],i[5],auto_serial_number,voucher_number,i[7],i[7],i[8],computer_name,created_by,convert(date,getdate(),103))
+
+    a = cur.execute(query)
+    cur.commit()
+
+    check_e = a.rowcount
+    if check_e>=1:
+       val = "Saved Successfully"
+    else:
+       val = "Data not Saved"
+
+    conn.close() 
+    return jsonify({"response": val}), 200
