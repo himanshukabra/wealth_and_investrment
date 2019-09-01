@@ -1001,7 +1001,7 @@ def insert_temp_journal():
                'createdby':request.json['createdby']}               
       
        json_final_data = insert_data_in_temp_journal(data['dbname'],data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['vouchernumber'],data['standard_description'],data['amount'],data['computername'],data['createdby'])
-account_ledger
+
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
