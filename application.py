@@ -22,6 +22,7 @@ from journal_entry import get_auto_serial_number
 from journal_entry import insert_data_in_temp_journal
 from journal_entry import delete_temp_journal_entry
 from journal_entry import get_temp_journal_transaction
+from journal_entry import insert_journal
 
 from flask import Flask
 app = Flask(__name__)
@@ -997,10 +998,52 @@ def get_temp_journal_transaction_data():
    if auth == 'asoidewfoef':       
        data = []
        data = {'dbname':request.json['dbname'],
-               'user_name':request.json['user_name'],
-               'computer_name':request.json['computer_name']}   
-       json_final_data = get_temp_journal_transaction(data['dbname'],data['user_name'],data['computer_name'])
+               'createdby':request.json['createdby'],
+               'computername':request.json['computername']}   
+       json_final_data = get_temp_journal_transaction(data['dbname'],data['createdby'],data['computername'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
+
+@app.route('/insert_in_journal_entry', methods=['POST'])
+def insert_in_journal_entry():
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    pd.options.mode.chained_assignment = None      
+    from flask import Flask, request, jsonify
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+  
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'voucher_number':request.json['voucher_number'],
+               'createdby':request.json['createdby'],
+               'computername':request.json['computername']}
+      
+       data_from_db = pd.DataFrame()
+       data_from_db = get_temp_journal_transaction_data(data['dbname'],data['createdby'],data['computername'])
+       
+       asn = get_auto_serial_number(data['dbname'])
+         
+       for i in data_from_db.itertuples():
+           query = "insert into T_Journal (date,AccountHead,accountledger,drcr,autoserailnumber,voucher_number,standarddescription1, standarddescription2,amount,computername,createdby,createddate) values ('%s',%s,%s,'%s','%s','%s','%s','%s',%s,'%s','%s','%s','%s')"%(i[2],i[3],i[4],i[5],asn['srno'],data['voucher_number'],i[7],i[7],i[8],computer_name,created_by,convert(date,getdate(),103))
+           a = cur.execute(query)
+           cur.commit()
+
+           check_e = a.rowcount
+           if check_e>=1:
+               val = "Saved Successfully"
+           else:
+               val = "Data not Saved"       
+      
+       #delete_temp_transaction_permanently_post_entry(data['dbname'],data['user_name'],data['computer_name'])      
+      
+    else:           
+       json_final_data = "ERROR: Unauthorized Access"
+         
+       
+    return jsonify({"response": json_final_data})
