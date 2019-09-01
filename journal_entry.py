@@ -152,3 +152,28 @@ def insert_journal(dbname,voucher_number,auto_serial_number,user_name,computer_n
     conn.close() 
     return jsonify({"response": val}), 200
 
+def get_temp_journal_transaction_as_dataframe(dbname,user_name,computer_name):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+
+    query = "select tableid,date,AccountHead,AccountLedger,DRCR,VoucherNumber,StandardDescription1,Amount from t_temp_journal where ComputerName = '%s' and CreatedBy = '%s'"%(computer_name,user_name)
+
+    abc = pd.read_sql(query, conn)
+
+    conn.close() 
+
+    return abc
