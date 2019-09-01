@@ -23,6 +23,7 @@ from journal_entry import insert_data_in_temp_journal
 from journal_entry import delete_temp_journal_entry
 from journal_entry import get_temp_journal_transaction
 from journal_entry import insert_journal
+from journal_entry import get_temp_journal_transaction_as_dataframe
 
 from flask import Flask
 app = Flask(__name__)
@@ -1025,7 +1026,7 @@ def insert_in_journal_entry():
                'computername':request.json['computername']}
       
        data_from_db = pd.DataFrame()
-       data_from_db = get_temp_journal_transaction(data['dbname'],data['createdby'],data['computername'])
+       data_from_db = get_temp_journal_transaction_as_dataframe(data['dbname'],data['createdby'],data['computername'])
        
        asn = get_auto_serial_number(data['dbname'])
          
