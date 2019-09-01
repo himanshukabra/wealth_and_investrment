@@ -1031,7 +1031,7 @@ def insert_in_journal_entry():
        asn = get_auto_serial_number(data['dbname'])
          
        for i in data_from_db.itertuples():
-           query = "insert into T_Journal (date,AccountHead,accountledger,drcr,autoserailnumber,voucher_number,standarddescription1, standarddescription2,amount,computername,createdby,createddate) values ('%s',%s,%s,'%s','%s','%s','%s','%s',%s,'%s','%s','%s','%s')"%(i[2],i[3],i[4],i[5],asn['srno'],data['voucher_number'],i[7],i[7],i[8],computer_name,created_by,convert(date,getdate(),103))
+           query = "insert into T_Journal (date,AccountHead,accountledger,drcr,autoserailnumber,voucher_number,standarddescription1, standarddescription2,amount,computername,createdby,createddate) values ('%s',%s,%s,'%s','%s','%s','%s','%s',%s,'%s','%s','%s','%s')"%(i[2],i[3],i[4],i[5],asn['srno'],data['voucher_number'],i[7],i[7],i[8],computername,createdby,convert(date,getdate(),103))
            a = cur.execute(query)
            cur.commit()
 
