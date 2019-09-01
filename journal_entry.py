@@ -110,7 +110,7 @@ def get_temp_journal_transaction(dbname,user_name,computer_name):
     except Exception as e:
         print(e)
 
-    query = "select tableid,date,AccountHead,AccountLedger,DRCR,VoucherNumber,StandardDescription1,Amount from t_temp_journal where ComputerName = '%s' and CreatedBy = '%s'"%(computer_name,user_name)
+    query = "select tableid,date,AccountHead as account_head,AccountLedger as account_ledger,DRCR,VoucherNumber as voucher_number,StandardDescription1 as standard_description,Amount from t_temp_journal where ComputerName = '%s' and CreatedBy = '%s'"%(computer_name,user_name)
 
     abc = pd.read_sql(query, conn)
 
