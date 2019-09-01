@@ -27,7 +27,7 @@ def get_auto_serial_number(dbname):
     
     return abc
     
-def insert_data_in_temp_journal(dbname,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,computer_name,created_by,created_date):
+def insert_data_in_temp_journal(dbname,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,computer_name,created_by):
     
     import pyodbc
     import pandas as pd
@@ -46,7 +46,7 @@ def insert_data_in_temp_journal(dbname,date_of_transaction,account_head,account_
         print(e)  
 
     cur = conn.cursor()
-    query = "insert into T_Temp_Journal([Date], AccountHead, AccountLedger, DRCR, VoucherNumber, StandardDescription1, Amount,ComputerName,CreatedBy,CreatedDate) values (convert(date, '%s',103),%s,%s,'%s','%s','%s',%s,'%s','%s',convert(date,'%s',103))"%(date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,computer_name,created_by,created_date)
+    query = "insert into T_Temp_Journal([Date], AccountHead, AccountLedger, DRCR, VoucherNumber, StandardDescription1, Amount,ComputerName,CreatedBy,CreatedDate) values (convert(date, '%s',103),%s,%s,'%s','%s','%s',%s,'%s','%s',convert(date,GetDate(),103))"%(date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,computer_name,created_by)
 
     a = cur.execute(query)
     cur.commit()
