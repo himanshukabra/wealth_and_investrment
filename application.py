@@ -1042,9 +1042,11 @@ def insert_in_journal_entry():
        data_from_db = get_temp_journal_transaction_as_dataframe(data['dbname'],data['createdby'],data['computername'])
        
        asn = get_auto_serial_number(data['dbname'])
+       for i in asn.itertuples():  
+           sn = i[1]  
          
        for i in data_from_db.itertuples():
-           query = "exec Usp_T_Insert_in_Journal_Web 0,'%s',%s,%s,'%s','%s','%s','%s',%s,'%s','%s'"%(i[2],i[3],i[4],i[5],data['voucher_number'],asn['srno'],i[7],i[8],data['computername'],data['createdby'])
+           query = "exec Usp_T_Insert_in_Journal_Web 0,'%s',%s,%s,'%s','%s','%s','%s',%s,'%s','%s'"%(i[2],i[3],i[4],i[5],data['voucher_number'],str(sn),i[7],i[8],data['computername'],data['createdby'])
            a = cur.execute(query)
            cur.commit()
 
