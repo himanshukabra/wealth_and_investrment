@@ -25,6 +25,7 @@ from journal_entry import get_temp_journal_transaction
 from journal_entry import insert_journal
 from journal_entry import get_temp_journal_transaction_as_dataframe
 
+
 from flask import Flask
 app = Flask(__name__)
 
