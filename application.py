@@ -390,12 +390,14 @@ def get_holding_with_gain_loss():
 #            bond_final_data['absolute_gain(%)'] = bond_final_data.apply(calculate_absolute_gain, axis =1) 
 #            bond_final_data = bond_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})    
 
-           if not equity_final_data.empty and mf_final_data.empty:
-               frames = [equity_final_data]
-           elif not mf_final_data.empty and equity_final_data.empty:
+           if equity_final_data.empty and mf_final_data.empty:
+               exit()
+           elif equity_final_data.empty:
                frames = [mf_final_data]
-           elif not mf_final_data.empty and not equity_final_data.empty:    
-               frames = [equity_final_data, mf_final_data]
+           elif mf_final_data.empty:    
+               frames = [equity_final_data]
+           else:
+               frames = [equity_final_data,mf_final_data]            
            
            combined_holding_data = pd.concat(frames)
 
