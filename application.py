@@ -24,7 +24,7 @@ from journal_entry import delete_temp_journal_entry
 from journal_entry import get_temp_journal_transaction
 from journal_entry import insert_journal
 from journal_entry import get_temp_journal_transaction_as_dataframe
-
+from journal_entry import delete_temp_transaction_permanently_post_entry_for_journal
 
 from flask import Flask
 app = Flask(__name__)
@@ -1056,7 +1056,7 @@ def insert_in_journal_entry():
            else:
                json_final_data = "Data not Saved"       
       
-       #delete_temp_transaction_permanently_post_entry(data['dbname'],data['user_name'],data['computer_name'])      
+       #delete_temp_transaction_permanently_post_entry_for_journal(data['dbname'],data['createdby'],data['computername'])      
       
     else:           
        json_final_data = "ERROR: Unauthorized Access"
