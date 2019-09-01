@@ -1025,7 +1025,17 @@ def insert_in_journal_entry():
                'voucher_number':request.json['voucher_number'],
                'createdby':request.json['createdby'],
                'computername':request.json['computername']}
-      
+ 
+       db=data['dbname']
+       user="shsa"
+       server="13.127.124.84,6016"
+       password="Easeprint#021"
+       port = "80"
+       try:
+           conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+       except Exception as e:
+           print(e)
+
        data_from_db = pd.DataFrame()
        data_from_db = get_temp_journal_transaction_as_dataframe(data['dbname'],data['createdby'],data['computername'])
        
