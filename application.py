@@ -18,8 +18,8 @@ from auto_transaction_entry import update_auto_debit_transaction
 from auto_transaction_entry import get_bank_names
 from update_ledger_opening_balance import get_ledger_opening
 from update_ledger_opening_balance import update_new_opening_balance_for_ledger
-# from journal_entry import get_auto_serial_number
-# from journal_entry import insert_data_in_jornal
+from journal_entry import get_auto_serial_number
+from journal_entry import insert_data_in_temp_journal
 
 from flask import Flask
 app = Flask(__name__)
@@ -981,6 +981,32 @@ def update_opening_to_master():
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
+
+@app.route("/insert_temp_journal", methods=['POST'])
+def insert_temp_journal():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':     
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'date':request.json['date'],
+               'account_ledger':request.json['account_ledger'],
+               'account_head':request.json['account_head'],
+               'drcr':request.json['drcr'],
+               'vouchernumber':request.json['vouchernumber'],
+               'standard_description':request.json['standard_description'],
+               'amount':request.json['amount'],
+               'computername':request.json['computername'],
+               'createdby':request.json['createdby']}               
+      
+       json_final_data = insert_data_in_temp_journal(data['dbname'],data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['vouchernumber'],data['standard_description'],data['amount'],data['computername'],data['createdby'])
+account_ledger
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+         
+   return json_final_data
+
 
 @app.route('/test', methods=['POST'])
 def test(): 
