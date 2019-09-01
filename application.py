@@ -339,26 +339,26 @@ def get_holding_with_gain_loss():
            date = (datetime.now() + timedelta(minutes=330)).strftime('%d-%b-%Y')
            overall_data = pd.DataFrame()    
            equity_data = data1.loc[data1['product_name']=='Equity'] 
-           for x in equity_data.itertuples():
-               price = get_nse_price(str(x[4]))
-               overall_data = overall_data.append(price) 
-           site_data = overall_data[['symbol','lastPrice']]
-           site_data["lastPrice"] = pd.to_numeric(site_data["lastPrice"])
-           site_data.symbol = site_data.symbol.apply(str)
-           equity_data.scrip_code = equity_data.scrip_code.apply(str)
-           equity_data["closing_shares"] = pd.to_numeric(equity_data["closing_shares"])
-           equity_data["total_amount"] = pd.to_numeric(equity_data["total_amount"])
-           final_data = pd.merge(equity_data,site_data,left_on='scrip_code',right_on='symbol',how='left')
-           final_data['lastPrice'] = final_data['lastPrice'].fillna(0)
-           final_data['date'] = date
-           equity_final_data = final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','lastPrice','date']]
-           equity_final_data = equity_final_data.rename(columns={'lastPrice': 'nav'})
-           equity_final_data['cost_price'] = equity_final_data.apply(calculate_cost, axis =1) 
-           equity_final_data['current_value'] = equity_final_data.apply(calculate_current_value, axis =1) 
-           equity_final_data['gain/loss'] = equity_final_data.apply(calculate_gain_loss, axis =1) 
-           equity_final_data['absolute_gain(%)'] = equity_final_data.apply(calculate_absolute_gain, axis =1) 
-           equity_final_data = equity_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})    
-
+           if not equity_data.empty:
+               for x in equity_data.itertuples():
+                   price = get_nse_price(str(x[4]))
+                   overall_data = overall_data.append(price) 
+                site_data = overall_data[['symbol','lastPrice']]
+                site_data["lastPrice"] = pd.to_numeric(site_data["lastPrice"])
+                site_data.symbol = site_data.symbol.apply(str)
+                equity_data.scrip_code = equity_data.scrip_code.apply(str)
+                equity_data["closing_shares"] = pd.to_numeric(equity_data["closing_shares"])
+                equity_data["total_amount"] = pd.to_numeric(equity_data["total_amount"])
+                final_data = pd.merge(equity_data,site_data,left_on='scrip_code',right_on='symbol',how='left')
+                final_data['lastPrice'] = final_data['lastPrice'].fillna(0)
+                final_data['date'] = date
+                equity_final_data = final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','lastPrice','date']]
+                equity_final_data = equity_final_data.rename(columns={'lastPrice': 'nav'})
+                equity_final_data['cost_price'] = equity_final_data.apply(calculate_cost, axis =1) 
+                equity_final_data['current_value'] = equity_final_data.apply(calculate_current_value, axis =1) 
+                equity_final_data['gain/loss'] = equity_final_data.apply(calculate_gain_loss, axis =1) 
+                equity_final_data['absolute_gain(%)'] = equity_final_data.apply(calculate_absolute_gain, axis =1) 
+                equity_final_data = equity_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})    
 
 #            bond_data = data1.loc[data1['product_name']=='Bonds'] 
 #            bond_scehme_codes = bond_data['scrip_code']
