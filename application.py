@@ -311,27 +311,6 @@ def get_holding_with_gain_loss():
            data1 = abc
 
            #### mutual fund scheme calculation
-
-#            mutual_fund_data = data1.loc[data1['product_name']=='Mutual Fund']    
-#            scehme_codes = mutual_fund_data['scrip_id']
-#            scheme_code_stirng = '{'+ '"' + 'schemeCodes' + '"' + ":["
-#            for i in scehme_codes:
-#                scheme_code_stirng = scheme_code_stirng + '"' + str(i) + '"' + ","
-#            mf_code_string = replace_last(scheme_code_stirng, ',', ']}')  
-#            a = json.loads(get_mutual_fund_nav(mf_code_string))
-#            ab = a['data']
-#            mf_nav_from_site = pd.DataFrame.from_dict(ab)
-#            mf_nav_from_site['schemeCode'] = pd.to_numeric(mf_nav_from_site['schemeCode'])
-#            mutual_fund_data['scrip_code'] = pd.to_numeric(mutual_fund_data['scrip_code'])
-#            mutual_fund_data['total_amount'] = pd.to_numeric(mutual_fund_data['total_amount'])
-#            mutual_fund_data['closing_shares'] = pd.to_numeric(mutual_fund_data['closing_shares'])
-#            mf_final_data = pd.merge(mutual_fund_data,mf_nav_from_site,left_on='scrip_code',right_on='schemeCode',how='left')
-#            mf_final_data = mf_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','nav','date']]
-#            mf_final_data['cost_price'] = mf_final_data.apply(calculate_cost, axis =1) 
-#            mf_final_data['current_value'] = mf_final_data.apply(calculate_current_value, axis =1) 
-#            mf_final_data['gain/loss'] = mf_final_data.apply(calculate_gain_loss, axis =1) 
-#            mf_final_data['absolute_gain(%)'] = mf_final_data.apply(calculate_absolute_gain, axis =1) 
-#            mf_final_data = mf_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})
            mutual_fund_data = data1.loc[data1['product_name']=='Mutual Fund']    
            scehme_codes = mutual_fund_data['scrip_code']
            scheme_code_stirng = '{'+ '"' + 'schemeCodes' + '"' + ":["
@@ -381,37 +360,43 @@ def get_holding_with_gain_loss():
            equity_final_data = equity_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})    
 
 
-           bond_data = data1.loc[data1['product_name']=='Bonds'] 
-           bond_scehme_codes = bond_data['scrip_code']
-           abc = bond_scehme_codes.to_list()
-           b = BSE()
-           dfObj1 = pd.DataFrame()
-           codelist = abc
-           for code in codelist:
-               quote = b.getQuote(code)
-               dfObj = pd.DataFrame(quote)
-               dfObj1 = dfObj1.append(dfObj)
+#            bond_data = data1.loc[data1['product_name']=='Bonds'] 
+#            bond_scehme_codes = bond_data['scrip_code']
+#            abc = bond_scehme_codes.to_list()
+#            b = BSE()
+#            dfObj1 = pd.DataFrame()
+#            codelist = abc
+#            for code in codelist:
+#                quote = b.getQuote(code)
+#                dfObj = pd.DataFrame(quote)
+#                dfObj1 = dfObj1.append(dfObj)
 
-           dfObj1 = dfObj1.drop_duplicates(subset='scripCode', keep='first', inplace=False)
-           bond_prices_from_site = dfObj1[['scripCode','currentValue','updatedOn']]        
+#            dfObj1 = dfObj1.drop_duplicates(subset='scripCode', keep='first', inplace=False)
+#            bond_prices_from_site = dfObj1[['scripCode','currentValue','updatedOn']]        
 
-           bond_prices_from_site["scripCode"] = pd.to_numeric(bond_prices_from_site["scripCode"])
-           bond_prices_from_site["currentValue"] = pd.to_numeric(bond_prices_from_site["currentValue"])
-           bond_data["scrip_code"] = pd.to_numeric(bond_data["scrip_code"])
-           bond_data["total_amount"] = pd.to_numeric(bond_data["total_amount"])
-           bond_data["closing_shares"] = pd.to_numeric(bond_data["closing_shares"])
-           bond_final_data = pd.merge(bond_data,bond_prices_from_site,left_on='scrip_code',right_on='scripCode',how='left')
-           bond_final_data = bond_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','currentValue','updatedOn']]
-           bond_final_data['currentValue'] = bond_final_data['currentValue'].fillna(0)
-           bond_final_data = bond_final_data.rename(columns={'currentValue': 'nav'})
-           bond_final_data = bond_final_data.rename(columns={'updatedOn': 'date'})
-           bond_final_data['cost_price'] = bond_final_data.apply(calculate_cost, axis =1) 
-           bond_final_data['current_value'] = bond_final_data.apply(calculate_current_value, axis =1) 
-           bond_final_data['gain/loss'] = bond_final_data.apply(calculate_gain_loss, axis =1) 
-           bond_final_data['absolute_gain(%)'] = bond_final_data.apply(calculate_absolute_gain, axis =1) 
-           bond_final_data = bond_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})    
+#            bond_prices_from_site["scripCode"] = pd.to_numeric(bond_prices_from_site["scripCode"])
+#            bond_prices_from_site["currentValue"] = pd.to_numeric(bond_prices_from_site["currentValue"])
+#            bond_data["scrip_code"] = pd.to_numeric(bond_data["scrip_code"])
+#            bond_data["total_amount"] = pd.to_numeric(bond_data["total_amount"])
+#            bond_data["closing_shares"] = pd.to_numeric(bond_data["closing_shares"])
+#            bond_final_data = pd.merge(bond_data,bond_prices_from_site,left_on='scrip_code',right_on='scripCode',how='left')
+#            bond_final_data = bond_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','currentValue','updatedOn']]
+#            bond_final_data['currentValue'] = bond_final_data['currentValue'].fillna(0)
+#            bond_final_data = bond_final_data.rename(columns={'currentValue': 'nav'})
+#            bond_final_data = bond_final_data.rename(columns={'updatedOn': 'date'})
+#            bond_final_data['cost_price'] = bond_final_data.apply(calculate_cost, axis =1) 
+#            bond_final_data['current_value'] = bond_final_data.apply(calculate_current_value, axis =1) 
+#            bond_final_data['gain/loss'] = bond_final_data.apply(calculate_gain_loss, axis =1) 
+#            bond_final_data['absolute_gain(%)'] = bond_final_data.apply(calculate_absolute_gain, axis =1) 
+#            bond_final_data = bond_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})    
 
-           frames = [equity_final_data, mf_final_data, bond_final_data]
+           if not equity_final_data.empty and mf_final_data.empty:
+               frames = [equity_final_data]
+           elif not mf_final_data.empty and equity_final_data.empty:
+               frames = [mf_final_data]
+           elif not mf_final_data.empty and not equity_final_data.empty:    
+               frames = [equity_final_data, mf_final_data]
+           
            combined_holding_data = pd.concat(frames)
 
            combined_holding_data = combined_holding_data.rename(columns={'closing_shares': 'quantity'}) 
