@@ -182,7 +182,7 @@ def get_trial_balance():
           password="Easeprint#021"
           port = "80"
           try:
-              conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+              conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password;Trusted_Connection=True', timeout=10)
           except Exception as e:
               print(e)
 
