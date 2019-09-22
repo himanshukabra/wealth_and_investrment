@@ -225,7 +225,7 @@ def delete_journal_book_entry(dbname,auto_serial_number):
 
     cur = conn.cursor()
 
-    query = "exec Usp_T_JournalEntry 0,2,'','','','','','',%s"(table_id,auto_serial_number)    
+    query = "exec Usp_T_JournalEntry 0,2,'','','','','','',%s"(auto_serial_number)    
     abc = pd.read_sql(query, conn)
     a = cur.execute(query)
     cur.commit()
