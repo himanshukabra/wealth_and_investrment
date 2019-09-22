@@ -1075,7 +1075,7 @@ def get_cash_and_bank_book_entry_date():
    return json_final_data
 
 @app.route("/delete_cash_or_bank_book_entry_data", methods=['POST'])
-def delete_bank_book_entry_data():
+def delete_cash_or_bank_book_entry_data():
    from flask import Flask, request, jsonify
    headers = request.headers
    auth = headers.get("X-Api-Key")
