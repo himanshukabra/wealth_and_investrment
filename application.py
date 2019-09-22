@@ -1057,7 +1057,7 @@ def insert_in_journal_entry():
        
     return jsonify({"response": json_final_data})
 
-@app.route("/", methods=['POST'])
+@app.route("/get_cash_and_bank_book_entry_date", methods=['POST'])
 def get_cash_and_bank_book_entry_date():
    from flask import Flask, request, jsonify
    headers = request.headers
