@@ -1093,7 +1093,7 @@ def get_cash_and_bank_book_entry_date():
 
           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
             
-   return json_final_data
+       return json_final_data
 
 @app.route("/delete_cash_or_bank_book_entry_data", methods=['POST'])
 def delete_cash_or_bank_book_entry_data():
