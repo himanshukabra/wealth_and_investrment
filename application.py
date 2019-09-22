@@ -25,6 +25,10 @@ from journal_entry import get_temp_journal_transaction
 from journal_entry import insert_journal
 from journal_entry import get_temp_journal_transaction_as_dataframe
 from journal_entry import delete_temp_transaction_permanently_post_entry_for_journal
+from cash_book import get_bank_book_data
+from cash_book import delete_cash_book_entry
+from cash_book import delete_bank_book_entry
+
 
 from flask import Flask
 app = Flask(__name__)
@@ -1052,3 +1056,41 @@ def insert_in_journal_entry():
          
        
     return jsonify({"response": json_final_data})
+
+@app.route("/", methods=['POST'])
+def get_cash_and_bank_book_entry_date():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'from_date':request.json['from_date'],
+               'to_date':request.json['to_date']}   
+      
+       json_final_data = get_bank_book_data(data['dbname'],data['from_date'],data['to_date'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
+
+@app.route("/delete_cash_or_bank_book_entry_data", methods=['POST'])
+def delete_bank_book_entry_data():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'entry_type':request.json['entry_type'],
+               'tableid':request.json['tableid'],
+               'auto_serial_number':request.json['auto_serial_number']}   
+       
+        if (data['dbname']=='cash_book'):
+            json_final_data = delete_cash_book_entry(data['dbname'],data['tableid'],data['auto_serial_number'])
+        else:
+            json_final_data = delete_bank_book_entry(data['dbname'],data['tableid'],data['auto_serial_number']) 
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
