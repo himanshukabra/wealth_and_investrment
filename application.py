@@ -1142,7 +1142,7 @@ def get_journal_book_entry_data():
           except Exception as e:
               print(e)
 
-          query = "Select Distinct Amount,StandardDescription1 as [Desciption],convert(varchar,Date,103) as Date,AutoSerialNumber,VoucherNumber From T_Journal WHERE [Date] BETWEEN convert(date,%s,101) and convert(date,%s,101)"%(data['from_date'],data['to_date'])
+          query = "Select Distinct Amount,StandardDescription1 as [Desciption],convert(varchar,Date,103) as Date,AutoSerialNumber,VoucherNumber From T_Journal WHERE [Date] BETWEEN convert(varchar,%s,101) and convert(varchar,%s,101)"%(data['from_date'],data['to_date'])
 
           abc = pd.read_sql(query, conn)    
           json_final_data = abc.to_json(orient='records', date_format = 'iso')
