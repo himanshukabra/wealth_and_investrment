@@ -203,3 +203,39 @@ def delete_temp_transaction_permanently_post_entry_for_journal(dbname,user_name,
 
     conn.close() 
     return None
+
+def delete_journal_book_entry(dbname,auto_serial_number):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    import json
+    from flask import Flask, request, jsonify
+    pd.options.mode.chained_assignment = None    
+
+    db=dbname
+    user="shsa"
+    server="13.127.124.84,6016"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+    except Exception as e:
+        print(e)
+
+    cur = conn.cursor()
+
+    query = "exec Usp_T_JournalEntry 0,2,'','','','','','',%s"(table_id,auto_serial_number)    
+    abc = pd.read_sql(query, conn)
+    a = cur.execute(query)
+    cur.commit()
+
+    check_e = a.rowcount
+    if check_e>=1:
+        val = "Saved Successfully"
+    else:
+        val = "Data not saved"
+
+    conn.close() 
+    return jsonify({"message": val}), 200 
+
