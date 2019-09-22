@@ -19,7 +19,7 @@ def get_bank_book_data(dbname,from_date,to_date):
 
     cur = conn.cursor()
 
-    query = "exec Usp_T_BankBook 0,3,'',%s,'%s'"(from_date,to_date)    
+    query = "exec Usp_T_BankBook 0,3,'',%s,%s"(from_date,to_date)    
     abc = pd.read_sql(query, conn)
     conn.close() 
     
