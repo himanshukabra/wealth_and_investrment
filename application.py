@@ -1115,3 +1115,42 @@ def delete_cash_or_bank_book_entry_data():
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
+
+@app.route("/get_journal_book_entry_data", methods=['POST'])
+def get_journal_book_entry_data():
+       import pyodbc
+       import pandas as pd
+       import pandas.io.sql as psql
+       from flask import Flask, request, jsonify
+
+       headers = request.headers
+       auth = headers.get("X-Api-Key")
+       if auth == 'asoidewfoef':  
+
+          data = []
+          data = {'dbname':request.json['dbname'],
+                  'from_date':request.json['from_date'],
+                  'to_date':request.json['to_date']}
+
+          db=data['dbname']
+          user="shsa"
+          server="13.127.124.84,6016"
+          password="Easeprint#021"
+          port = "80"
+          try:
+              conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+          except Exception as e:
+              print(e)
+
+          query = "Select Distinct Amount,StandardDescription1 as [Desciption],convert(varchar,Date,103) as Date,AutoSerialNumber,VoucherNumber From T_Journal WHERE [Date] BETWEEN convert(date,%s,101) and convert(date,%s,101)"%(data['from_date'],data['to_date'])
+
+          abc = pd.read_sql(query, conn)    
+          json_final_data = abc.to_json(orient='records', date_format = 'iso')
+          conn.close()
+
+       else:
+
+          json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+            
+       return json_final_data
+
