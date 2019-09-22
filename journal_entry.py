@@ -238,4 +238,3 @@ def delete_journal_book_entry(dbname,auto_serial_number):
 
     conn.close() 
     return jsonify({"message": val}), 200 
-
