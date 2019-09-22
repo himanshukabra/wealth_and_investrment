@@ -28,7 +28,7 @@ from journal_entry import delete_temp_transaction_permanently_post_entry_for_jou
 from cash_book import get_bank_book_data
 from cash_book import delete_cash_book_entry
 from cash_book import delete_bank_book_entry
-from journal_entry import delete_journal_entry_data
+from journal_entry import delete_journal_book_entry
 
 from flask import Flask
 app = Flask(__name__)
