@@ -1086,10 +1086,10 @@ def delete_bank_book_entry_data():
                'tableid':request.json['tableid'],
                'auto_serial_number':request.json['auto_serial_number']}   
        
-        if (data['dbname']=='cash_book'):
-            json_final_data = delete_cash_book_entry(data['dbname'],data['tableid'],data['auto_serial_number'])
-        else:
-            json_final_data = delete_bank_book_entry(data['dbname'],data['tableid'],data['auto_serial_number']) 
+       if (data['dbname']=='cash_book'):
+           json_final_data = delete_cash_book_entry(data['dbname'],data['tableid'],data['auto_serial_number'])
+       else:
+           json_final_data = delete_bank_book_entry(data['dbname'],data['tableid'],data['auto_serial_number']) 
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
