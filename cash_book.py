@@ -49,7 +49,6 @@ def delete_bank_book_entry(dbname,table_id,auto_serial_number):
     cur = conn.cursor()
 
     query = "exec Usp_T_BankBook %s,2,'','','','','','',%s"%(table_id,auto_serial_number)    
-    abc = pd.read_sql(query, conn)
     a = cur.execute(query)
     cur.commit()
 
@@ -60,7 +59,7 @@ def delete_bank_book_entry(dbname,table_id,auto_serial_number):
         val = "Data not saved"
 
     conn.close() 
-    return jsonify({"message": val}), 200     
+    return jsonify({"message": val}), 200      
     
 def delete_cash_book_entry(dbname,table_id,auto_serial_number):
     
