@@ -54,9 +54,9 @@ def delete_bank_book_entry(dbname,table_id,auto_serial_number):
 
     check_e = a.rowcount
     if check_e>=1:
-        val = "Saved Successfully"
+        val = "Deleted Successfully"
     else:
-        val = "Data not saved"
+        val = "Data not Deleted"
 
     conn.close() 
     return jsonify({"message": val}), 200      
@@ -88,9 +88,9 @@ def delete_cash_book_entry(dbname,table_id,auto_serial_number):
 
     check_e = a.rowcount
     if check_e>=1:
-        val = "Saved Successfully"
+        val = "Deleted Successfully"
     else:
-        val = "Data not saved"
+        val = "Data not deleted"
 
     conn.close() 
     return jsonify({"message": val}), 200   
