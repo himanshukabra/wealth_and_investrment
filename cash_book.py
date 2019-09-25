@@ -19,7 +19,7 @@ def get_bank_book_data(dbname,from_date,to_date):
 
     cur = conn.cursor()
 
-    query = "exec Usp_T_BankBook 0,3,'',%s,%s"(from_date,to_date)    
+    query = "exec Usp_T_BankBook 0,3,'',%s,%s"%(from_date,to_date)    
     abc = pd.read_sql(query, conn)
     conn.close() 
     
@@ -48,7 +48,7 @@ def delete_bank_book_entry(dbname,table_id,auto_serial_number):
 
     cur = conn.cursor()
 
-    query = "exec Usp_T_BankBook %s,2,'','','','','','',%s"(table_id,auto_serial_number)    
+    query = "exec Usp_T_BankBook %s,2,'','','','','','',%s"%(table_id,auto_serial_number)    
     abc = pd.read_sql(query, conn)
     a = cur.execute(query)
     cur.commit()
@@ -83,7 +83,7 @@ def delete_cash_book_entry(dbname,table_id,auto_serial_number):
 
     cur = conn.cursor()
 
-    query = "exec Usp_T_CashBook %s,2,'','','','','','','',%s"(table_id,auto_serial_number)    
+    query = "exec Usp_T_CashBook %s,2,'','','','','','','',%s"%(table_id,auto_serial_number)    
     a = cur.execute(query)
     cur.commit()
 
