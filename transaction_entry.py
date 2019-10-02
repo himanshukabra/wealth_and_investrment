@@ -44,7 +44,7 @@ def get_scheme(dbname,product_id):
     except Exception as e:
         print(e)
 
-    query = "select top 100 * from (select Table_Id,ScripName,Product_Id from M_Equity union select id as tableid,bond_name as scripname,3 as Product_Id from M_Bonds union select Table_Id,Scheme_Name as scripname,Product_Id from M_Mutual_Funds union select 0 as TableId, '--Select One--',%s as product_id ) t where Product_Id = %s"%(product_id,product_id)
+    query = "select * from (select Table_Id,ScripName,Product_Id from M_Equity union select id as tableid,bond_name as scripname,3 as Product_Id from M_Bonds union select Table_Id,Scheme_Name as scripname,Product_Id from M_Mutual_Funds union select 0 as TableId, '--Select One--',%s as product_id ) t where Product_Id = %s"%(product_id,product_id)
 
     abc = pd.read_sql(query, conn)
 
