@@ -1147,7 +1147,151 @@ def get_journal_book_entry_data():
        else:
 
           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
-            
+
+@app.route('/get_equity_holding', methods=['POST'])
+def get_equity_holding(): 
+        import pyodbc
+        import pandas as pd
+        import pandas.io.sql as psql
+        import json
+        import datetime as dt
+        from pandas.io.json import json_normalize
+        from datetime import datetime
+        from datetime import timedelta
+        from bsedata.bse import BSE
+        from flask import Flask, request, jsonify
+        pd.options.mode.chained_assignment = None    
+
+        headers = request.headers
+        auth = headers.get("X-Api-Key")
+        if auth == 'asoidewfoef':  
+           data = []
+           data = {'dbname':request.json['dbname']}      
+
+           db=data['dbname']
+           user="shsa"
+           server="13.127.124.84,6016"
+           password="Easeprint#021"
+           port = "80"
+           try:
+               conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+           except Exception as e:
+               print(e)
+
+           cur = conn.cursor()
+
+           query = "exec usp_r_holding 0"
+
+           abc = pd.read_sql(query, conn)    
+
+           cur.close()
+           conn.close()
+
+           def replace_last(source_string, replace_what, replace_with):
+               head, _sep, tail = source_string.rpartition(replace_what)
+               return head + replace_with + tail
+
+           def calculate_current_value(row):
+
+               if row['nav']==0:
+                   val = row['closing_shares']*row['cost_price']
+               else:
+                   val = row['closing_shares']*row['nav']        
+               return val
+
+           def calculate_cost(row):
+
+               if row['nav']==0:
+                   val =0
+               else:
+                   val = row['total_amount']/row['closing_shares']        
+               return val
+
+           def calculate_gain_loss(row):
+
+               val = (row['current_value']-row['total_amount'])
+               return val
+
+           def calculate_absolute_gain(row):
+
+               if row['total_amount']==0:
+                   val = 0
+               else:
+                   val = (row['gain/loss']/row['total_amount'])*100
+               return val
+
+           def get_nse_price(scrip_name):
+               from pandas.io.json import json_normalize
+               from nsetools import Nse
+               import json
+               nse = Nse()
+               import json
+               from pandas.io.json import json_normalize
+               a = nse.is_valid_code(scrip_name)
+               b = str(a)
+               if b == 'False':
+                   filesd = []
+                   filesd=  [[scrip_name,0]]
+                   filesdata = pd.DataFrame(filesd,columns = ['symbol','lastPrice'])
+               if b == 'True':
+                   q = nse.get_quote(str(scrip_name))
+                   f = json.dumps(q)
+                   json_f = json.loads(f)
+                   filesdata = json_normalize(json_f)
+                  
+               return filesdata
+
+           data1 = abc
+
+           #### equity scheme calculation
+
+           date = (datetime.now() + timedelta(minutes=330)).strftime('%d-%b-%Y')
+           overall_data = pd.DataFrame()    
+           equity_data = data1.loc[data1['product_name']=='Equity'] 
+           if not equity_data.empty:
+               for x in equity_data.itertuples():
+                   price = get_nse_price(str(x[4]))
+                   overall_data = overall_data.append(price) 
+               site_data = overall_data[['symbol','lastPrice']]
+               site_data["lastPrice"] = pd.to_numeric(site_data["lastPrice"])
+               site_data.symbol = site_data.symbol.apply(str)
+               equity_data.scrip_code = equity_data.scrip_code.apply(str)
+               equity_data["closing_shares"] = pd.to_numeric(equity_data["closing_shares"])
+               equity_data["total_amount"] = pd.to_numeric(equity_data["total_amount"])
+               final_data = pd.merge(equity_data,site_data,left_on='scrip_code',right_on='symbol',how='left')
+               final_data['lastPrice'] = final_data['lastPrice'].fillna(0)
+               final_data['date'] = date
+               equity_final_data = final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','lastPrice','date']]
+               equity_final_data = equity_final_data.rename(columns={'lastPrice': 'nav'})
+               equity_final_data['cost_price'] = equity_final_data.apply(calculate_cost, axis =1) 
+               equity_final_data['current_value'] = equity_final_data.apply(calculate_current_value, axis =1) 
+               equity_final_data['gain/loss'] = equity_final_data.apply(calculate_gain_loss, axis =1) 
+               equity_final_data['absolute_gain(%)'] = equity_final_data.apply(calculate_absolute_gain, axis =1) 
+               equity_final_data = equity_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})     
+
+           if equity_data.empty:
+               json_final_data = jsonify({"message": "no data to show"})
+               exit()  
+           else:
+               frames = [equity_final_data]            
+           
+           combined_holding_data = pd.concat(frames)
+
+           combined_holding_data = combined_holding_data.rename(columns={'closing_shares': 'quantity'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'total_amount': 'total_cost'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'nav': 'current_price'})
+           combined_holding_data = combined_holding_data.rename(columns={'date': 'valuation_date'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'gain/loss': 'gainloss'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'absolute_gain(%)': 'absolute_gain'})  
+           combined_holding_data = combined_holding_data[['product_name','scrip_code','Particulars','quantity','cost_price','total_cost','current_price','valuation_date','current_value','gainloss','absolute_gain']]
+           combined_holding_data = combined_holding_data.round({'quantity' : 4,'cost_price' : 2,'gainloss' : 2,'absolute_gain':2,'total_cost':2,'current_price':2,'current_value':2})    
+
+           json_final_data = combined_holding_data.to_json(orient='records', date_format = 'iso')
+         
+        else:           
+           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+           return json_final_data            
+             
        return json_final_data
 
 @app.route("/delete_journal_entry_data", methods=['POST'])
