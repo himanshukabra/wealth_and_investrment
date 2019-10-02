@@ -1306,4 +1306,4 @@ def delete_journal_entry_data():
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
-   return json_final_data
+   return json_final_data 
