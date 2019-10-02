@@ -1289,8 +1289,7 @@ def get_equity_holding():
            json_final_data = combined_holding_data.to_json(orient='records', date_format = 'iso')
          
         else:           
-           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
-           return json_final_data            
+           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401          
              
         return json_final_data
 
