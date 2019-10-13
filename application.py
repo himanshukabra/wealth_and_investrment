@@ -1249,6 +1249,7 @@ def get_equity_holding():
            date = (datetime.now() + timedelta(minutes=330)).strftime('%d-%b-%Y')
            overall_data = pd.DataFrame()    
            equity_data = data1.loc[data1['product_name']=='Equity'] 
+           equity_data = equity_data[equity_data['scrip_code']!='']
            if not equity_data.empty:
                for x in equity_data.itertuples():
                    price = get_nse_price(str(x[4]))
