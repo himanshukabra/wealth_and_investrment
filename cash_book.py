@@ -59,7 +59,7 @@ def delete_bank_book_entry(dbname,table_id,auto_serial_number):
         val = "Data not Deleted"
 
     conn.close() 
-    return jsonify({"message": val}), 200      
+    return val      
     
 def delete_cash_book_entry(dbname,table_id,auto_serial_number):
     
