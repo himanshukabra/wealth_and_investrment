@@ -1319,7 +1319,6 @@ def edit_bank_data():
        data = {'dbname':request.json['dbname'],
                'auto_serial_number':request.json['auto_serial_number']}   
        json_final_data = get_bank_book_data_for_auto_serial_number(data['dbname'],data['auto_serial_number'])
-
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
    return json_final_data 
