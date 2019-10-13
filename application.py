@@ -28,6 +28,7 @@ from journal_entry import delete_temp_transaction_permanently_post_entry_for_jou
 from cash_book import get_bank_book_data
 from cash_book import delete_cash_book_entry
 from cash_book import delete_bank_book_entry
+from cash_book import get_bank_book_data_for_auto_serial_number
 from journal_entry import delete_journal_book_entry
 
 from flask import Flask
@@ -1303,6 +1304,21 @@ def delete_journal_entry_data():
        data = {'dbname':request.json['dbname'],
                'auto_serial_number':request.json['auto_serial_number']}   
        json_final_data = delete_journal_book_entry(data['dbname'],data['auto_serial_number'])
+
+   else:
+       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data 
+
+@app.route("/edit_bank_data", methods=['POST'])
+def edit_bank_data():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'auto_serial_number':request.json['auto_serial_number']}   
+       json_final_data = get_bank_book_data_for_auto_serial_number(data['dbname'],data['auto_serial_number'])
 
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
