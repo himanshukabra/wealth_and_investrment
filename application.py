@@ -1251,6 +1251,8 @@ def get_equity_holding():
            overall_data = pd.DataFrame()    
            equity_data = data1.loc[data1['product_name']=='Equity'] 
            equity_data = equity_data[equity_data['scrip_code']!='']
+           equity_data = equity_data.fillna('not_available')
+           equity_data = equity_data.loc[equity_data['scrip_code']!='not_available']
            if not equity_data.empty:
                for x in equity_data.itertuples():
                    price = get_nse_price(str(x[4]))
