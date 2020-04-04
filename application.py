@@ -1326,3 +1326,136 @@ def edit_bank_data():
    else:
        json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
    return json_final_data 
+
+@app.route('/get_mutual_fund_holdings', methods=['GET'])
+def get_mutual_fund_holdings(): 
+        import pyodbc
+        import pandas as pd
+        import pandas.io.sql as psql
+        import json
+        import datetime as dt
+        from pandas.io.json import json_normalize
+        from datetime import datetime
+        from datetime import timedelta
+        from bsedata.bse import BSE
+        from flask import Flask, request, jsonify
+        pd.options.mode.chained_assignment = None    
+
+        headers = request.headers
+        auth = headers.get("X-Api-Key")
+        if auth == 'asoidewfoef':  
+           data = []
+           data = {'dbname':request.json['dbname']}      
+
+           db=data['dbname']
+           user="shsa"
+           server="13.127.124.84,6016"
+           password="Easeprint#021"
+           port = "80"
+           try:
+               conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+           except Exception as e:
+               print(e)
+
+           cur = conn.cursor()
+
+           query = "exec usp_r_holding 2"
+
+           abc = pd.read_sql(query, conn)    
+
+           cur.close()
+           conn.close()
+
+           def replace_last(source_string, replace_what, replace_with):
+               head, _sep, tail = source_string.rpartition(replace_what)
+               return head + replace_with + tail
+
+           def get_mutual_fund_nav(mf_code_string):
+               import requests
+               import os
+               import json
+
+               url = "https://mutual-fund-info.p.rapidapi.com/ri/v1/investment/scheme/latestNav"
+               param = {
+                   "X-RapidAPI-Host": "mutual-fund-info.p.rapidapi.com",
+                   "X-RapidAPI-Key": "826618dea1msh8638b9c6973968ep101467jsnf068791f2bf0",
+                   "Content-Type": "application/json"
+               }
+
+               r = requests.post(url,data=(mf_code_string), headers=param)
+               mf_nav_data =r.content
+               return mf_nav_data
+
+           def calculate_current_value(row):
+
+               if row['nav']==0:
+                   val = row['closing_shares']*row['cost_price']
+               else:
+                   val = row['closing_shares']*row['nav']        
+               return val
+
+           def calculate_cost(row):
+
+               if row['nav']==0:
+                   val =0
+               else:
+                   val = row['total_amount']/row['closing_shares']        
+               return val
+
+           def calculate_gain_loss(row):
+
+               val = (row['current_value']-row['total_amount'])
+               return val
+
+           def calculate_absolute_gain(row):
+
+               if row['total_amount']==0:
+                   val = 0
+               else:
+                   val = (row['gain/loss']/row['total_amount'])*100
+               return val
+
+           data1 = abc
+
+           #### mutual fund scheme calculation
+           mutual_fund_data = data1.loc[data1['product_name']=='Mutual Fund']    
+           scehme_codes = mutual_fund_data['scrip_code']
+           scheme_code_stirng = '{'+ '"' + 'schemeCodes' + '"' + ":["
+           for i in scehme_codes:
+               scheme_code_stirng = scheme_code_stirng + '"' + str(i[:6]) + '"' + ","
+           mf_code_string = replace_last(scheme_code_stirng, ',', ']}')  
+           a = json.loads(get_mutual_fund_nav(mf_code_string))
+           del a['meta']
+           my_json_string = json.dumps(a)
+           df = pd.read_json(my_json_string)
+           mf_data = df.data.apply(pd.Series)         
+           mf_data['schemeCode'] = pd.to_numeric(mf_data['schemeCode'])
+           mutual_fund_data['scrip_code'] = pd.to_numeric(mutual_fund_data['scrip_code'])
+           mutual_fund_data['total_amount'] = pd.to_numeric(mutual_fund_data['total_amount'])
+           mutual_fund_data['closing_shares'] = pd.to_numeric(mutual_fund_data['closing_shares'])
+           mf_final_data = pd.merge(mutual_fund_data,mf_data,left_on='scrip_code',right_on='schemeCode',how='left')
+           mf_final_data = mf_final_data[['product_name','scrip_code','Particulars','closing_shares','total_amount','nav','date']]
+           mf_final_data['cost_price'] = mf_final_data.apply(calculate_cost, axis =1) 
+           mf_final_data['current_value'] = mf_final_data.apply(calculate_current_value, axis =1) 
+           mf_final_data['gain/loss'] = mf_final_data.apply(calculate_gain_loss, axis =1) 
+           mf_final_data['absolute_gain(%)'] = mf_final_data.apply(calculate_absolute_gain, axis =1) 
+           mf_final_data = mf_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})
+
+           combined_holding_data = pd.concat(mf_final_data)
+
+           combined_holding_data = combined_holding_data.rename(columns={'closing_shares': 'quantity'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'total_amount': 'total_cost'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'nav': 'current_price'})
+           combined_holding_data = combined_holding_data.rename(columns={'date': 'valuation_date'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'gain/loss': 'gainloss'}) 
+           combined_holding_data = combined_holding_data.rename(columns={'absolute_gain(%)': 'absolute_gain'})  
+           combined_holding_data = combined_holding_data[['product_name','scrip_code','Particulars','quantity','cost_price','total_cost','current_price','valuation_date','current_value','gainloss','absolute_gain']]
+           combined_holding_data = combined_holding_data.round({'quantity' : 4,'cost_price' : 2,'gainloss' : 2,'absolute_gain':2,'total_cost':2,'current_price':2,'current_value':2})    
+
+           json_final_data = combined_holding_data.to_json(orient='records', date_format = 'iso')
+
+           return json_final_data  
+         
+        else:           
+           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+           return json_final_data
