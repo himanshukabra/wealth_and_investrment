@@ -1420,6 +1420,7 @@ def get_mutual_fund_holdings():
            #### mutual fund scheme calculation
            mutual_fund_data = data1.loc[data1['product_name']=='Mutual Fund']    
            scehme_codes = mutual_fund_data['scrip_code']
+           print(scehme_codes)
            scheme_code_stirng = '{'+ '"' + 'schemeCodes' + '"' + ":["
            for i in scehme_codes:
                scheme_code_stirng = scheme_code_stirng + '"' + str(i[:6]) + '"' + ","
