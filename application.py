@@ -1441,7 +1441,7 @@ def get_mutual_fund_holdings():
            mf_final_data['absolute_gain(%)'] = mf_final_data.apply(calculate_absolute_gain, axis =1) 
            mf_final_data = mf_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})
 
-           combined_holding_data = pd.concat(mf_final_data)
+           combined_holding_data = pd.DataFrame(mf_final_data)
 
            combined_holding_data = combined_holding_data.rename(columns={'closing_shares': 'quantity'}) 
            combined_holding_data = combined_holding_data.rename(columns={'total_amount': 'total_cost'}) 
