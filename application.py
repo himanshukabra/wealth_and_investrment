@@ -579,7 +579,7 @@ def insert_data_cash_book():
                data['drcr']=="I"
            elif data['drcr']=="R":
                data['drcr']=="R"
-           query = "exec Usp_T_BankBook 1,0,'%s','','',%s,%s,'%s',4,'%s','%s','%s','%s',%s,%s,%s,%s,'','%s','%s','','','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['vouchernumber'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'])      
+           query = "exec Usp_T_BankBook 1,0,'%s','','',%s,%s,'%s',4,'%s','%s','%s','%s','%s',%s,%s,%s,'','%s','%s','','','',''"%(data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['vouchernumber'],data['standard_description'],data['standard_description'],data['standard_description'],data['standard_description'],data['amount'],data['ledgerhead'],data['ledger1'],data['computername'],data['createdby'])      
        
        #query = "exec Usp_T_CashBook 1,0,'2019-03-31','','',1,7125,'','D',4,'','test now','test now','test now','test now',1.00,21,7119,'HIMANSHU','HIMANSHU','2019-03-31','','',''"
        print(query)
