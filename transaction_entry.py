@@ -7,9 +7,8 @@ def get_product(dbname):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
-    port = "80"
     try:
         conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
 
@@ -35,7 +34,7 @@ def get_scheme(dbname,product_id):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -63,7 +62,7 @@ def get_broker(dbname):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -91,7 +90,7 @@ def get_demat(dbname,broker_id):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -119,7 +118,7 @@ def get_scrip_opening(dbname,scrip_id,product_id,folio):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -147,7 +146,7 @@ def get_folios(dbname,scrip_id,product_id):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -176,7 +175,7 @@ def insert_temp_transaction_register(dbname,product_id,scrip_id,folio_number,tra
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -208,7 +207,7 @@ def get_temp_transaction(dbname,user_name,computer_name):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -236,7 +235,7 @@ def delete_temp_transaction(dbname,tableid):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -268,7 +267,7 @@ def get_total_for_temp_transaction(dbname,user_name,computer_name):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -296,7 +295,7 @@ def get_product_ledger_list(dbname):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -324,7 +323,7 @@ def insert_data_in_at_from_transaction_entry(dbname,sp_type,date_of_transaction,
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -356,7 +355,7 @@ def get_temp_data_from_transaction_register(dbname,user_name,computer_name):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -384,7 +383,7 @@ def insert_final_data_in_transaction_register(dbname,date_of_transaction,broker_
 
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -417,7 +416,7 @@ def delete_temp_transaction_permanently_post_entry(dbname,user_name,computer_nam
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
