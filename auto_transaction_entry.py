@@ -7,7 +7,7 @@ def get_auto_debit_transaction_data(dbname,from_date,to_date):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -35,7 +35,7 @@ def update_auto_debit_transaction(dbname,amount_paid,bank_ledger,paid_on,table_i
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -67,7 +67,7 @@ def get_bank_names(dbname):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
