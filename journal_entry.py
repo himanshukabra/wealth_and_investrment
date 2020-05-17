@@ -9,7 +9,7 @@ def get_auto_serial_number(dbname):
 
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -36,7 +36,7 @@ def insert_data_in_temp_journal(dbname,date_of_transaction,account_head,account_
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -69,7 +69,7 @@ def delete_temp_journal_entry(dbname,tableid):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -101,7 +101,7 @@ def get_temp_journal_transaction(dbname,user_name,computer_name):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -129,7 +129,7 @@ def insert_journal(dbname,voucher_number,auto_serial_number,user_name,computer_n
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -161,7 +161,7 @@ def get_temp_journal_transaction_as_dataframe(dbname,user_name,computer_name):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -187,7 +187,7 @@ def delete_temp_transaction_permanently_post_entry_for_journal(dbname,user_name,
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -215,7 +215,7 @@ def delete_journal_book_entry(dbname,auto_serial_number):
 
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
