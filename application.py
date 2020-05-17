@@ -62,7 +62,7 @@ def get_all_ledger_heads():
 
        db=data['dbname']
        user="shsa"
-       server="13.127.124.84,6016"
+       server="103.212.121.67"
        password="Easeprint#021"
        port = "80"
        try:
@@ -103,7 +103,7 @@ def get_ledger_master():
          
        db=data['dbname']
        user="shsa"
-       server="13.127.124.84,6016"
+       server="103.212.121.67"
        password="Easeprint#021"
        port = "80"
        try:
@@ -145,7 +145,7 @@ def get_ledger():
 
           db=data['dbname']
           user="shsa"
-          server="13.127.124.84,6016"
+          server="103.212.121.67"
           password="Easeprint#021"
           port = "80"
           try:
@@ -183,7 +183,7 @@ def get_trial_balance():
 
           db=data['dbname']
           user="shsa"
-          server="13.127.124.84,6016"
+          server="103.212.121.67"
           password="Easeprint#021"
           port = "80"
           try:
@@ -228,7 +228,7 @@ def get_holding_with_gain_loss():
 
            db=data['dbname']
            user="shsa"
-           server="13.127.124.84,6016"
+           server="103.212.121.67"
            password="Easeprint#021"
            port = "80"
            try:
@@ -441,7 +441,7 @@ def get_gp_data_cash_book():
 
        db=data['dbname']
        user="shsa"
-       server="13.127.124.84,6016"
+       server="103.212.121.67"
        password="Easeprint#021"
        port = "80"
        try:
@@ -478,7 +478,7 @@ def get_cash_opening_balance():
 
        db=data['dbname']
        user="shsa"
-       server="13.127.124.84,6016"
+       server="103.212.121.67"
        password="Easeprint#021"
        port = "80"
        try:
@@ -515,7 +515,7 @@ def get_ledger_opening_balance():
 
        db=data['dbname']
        user="shsa"
-       server="13.127.124.84,6016"
+       server="103.212.121.67"
        password="Easeprint#021"
        port = "80"
        try:
@@ -563,7 +563,7 @@ def insert_data_cash_book():
 
        db=data['dbname']
        user="shsa"
-       server="13.127.124.84,6016"
+       server="103.212.121.67"
        password="Easeprint#021"
        port = "80"
        try:
@@ -1021,7 +1021,7 @@ def insert_in_journal_entry():
  
        db=data['dbname']
        user="shsa"
-       server="13.127.124.84,6016"
+       server="103.212.121.67"
        password="Easeprint#021"
        port = "80"
        try:
@@ -1074,7 +1074,7 @@ def get_cash_and_bank_book_entry_date():
 
           db=data['dbname']
           user="shsa"
-          server="13.127.124.84,6016"
+          server="103.212.121.67"
           password="Easeprint#021"
           port = "80"
           try:
@@ -1133,7 +1133,7 @@ def get_journal_book_entry_data():
 
           db=data['dbname']
           user="shsa"
-          server="13.127.124.84,6016"
+          server="103.212.121.67"
           password="Easeprint#021"
           port = "80"
           try:
@@ -1173,7 +1173,7 @@ def get_equity_holding():
 
            db=data['dbname']
            user="shsa"
-           server="13.127.124.84,6016"
+           server="103.212.121.67"
            password="Easeprint#021"
            port = "80"
            try:
