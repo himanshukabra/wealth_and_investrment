@@ -9,7 +9,7 @@ def get_bank_book_data(dbname,from_date,to_date):
 
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -38,7 +38,7 @@ def delete_bank_book_entry(dbname,table_id,auto_serial_number):
 
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -72,7 +72,7 @@ def delete_cash_book_entry(dbname,table_id,auto_serial_number):
 
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -107,7 +107,7 @@ def get_bank_book_data_for_auto_serial_number(dbname,auto_serial_number):
 
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
