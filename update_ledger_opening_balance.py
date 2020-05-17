@@ -7,7 +7,7 @@ def get_ledger_opening(dbname,ledger_id):
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
@@ -35,7 +35,7 @@ def update_new_opening_balance_for_ledger(dbname,account_ledger,debit_amount,cre
       
     db=dbname
     user="shsa"
-    server="13.127.124.84,6016"
+    server="103.212.121.67"
     password="Easeprint#021"
     port = "80"
     try:
