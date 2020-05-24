@@ -810,7 +810,6 @@ def update_account_transaction_for_transaction_entry():
                'reference_number':request.json['reference_number'],
                'remarks':request.json['remarks'],
                'user_name':request.json['user_name']}
-       print(data)
        
        data1=get_broker_id_ledger(data['dbname'],data['broker_id'])
        print(data1)         
