@@ -433,3 +433,30 @@ def delete_temp_transaction_permanently_post_entry(dbname,user_name,computer_nam
     conn.close() 
     return None
 
+def get_broker_id_ledger(dbname,broker_id):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="103.212.121.67"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+
+    query = "select accountledger from m_broker where id = %s"%broker_id
+
+    abc = pd.read_sql(query, conn)
+
+    json_final_data = abc.to_json(orient='records', date_format = 'iso')
+
+    conn.close() 
+
+    return json_final_data
