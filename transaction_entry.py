@@ -451,7 +451,7 @@ def get_broker_id_ledger(dbname,broker_id):
     except Exception as e:
         print(e)
 
-    query = "select accountledger from m_broker where id = %s"%broker_id
+    query = "select account_ledger from m_broker where id = %s"%broker_id
 
     abc = pd.read_sql(query, conn)
 
