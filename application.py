@@ -809,9 +809,10 @@ def update_account_transaction_for_transaction_entry():
                'reference_number':request.json['reference_number'],
                'remarks':request.json['remarks'],
                'user_name':request.json['user_name']}
-      
+       print(data)
+         
        if float(data['gross_amount'])<0:
-            json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
+               json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data['broker_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
        elif float(data['gross_amount'])>0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['investment_in_ledger_head'],data['investment_in_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['broker_head'],data['broker_ledger'],data['computer_name'],data['createdby'])
        elif float(data['gross_amount'])==0:
