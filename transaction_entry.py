@@ -277,7 +277,7 @@ def get_total_for_temp_transaction(dbname,user_name,computer_name):
         print(e)
     cur = conn.cursor()
     #query = "select isnull(sum(isnull(gross_amount,0)),0) as gross_amount,isnull(sum(isnull(brokerage,0)),0) as total_brokerage, isnull(sum(isnull(stt,0)),0) as stt_amount from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)
-    query = "select isnull(sum(isnull(case when transaction_type='Buy' then gross_amount else 0 end,0)),0) as gross_amount,isnull(sum(isnull(brokerage,0)),0) as total_brokerage, isnull(sum(isnull(stt,0)),0) as stt_amount from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)"
+    query = "select isnull(sum(isnull(case when transaction_type='Buy' then gross_amount else -gross_amount end,0)),0) as gross_amount,isnull(sum(isnull(brokerage,0)),0) as total_brokerage, isnull(sum(isnull(stt,0)),0) as stt_amount from t_transaction_api_temp where [user] = '%s' and computer_name = '%s'"%(user_name,computer_name)"
     abc = pd.read_sql(query, conn)
 
     json_final_data = abc.to_json(orient='records', date_format = 'iso')
