@@ -1444,7 +1444,9 @@ def get_investment_pie_graph():
    from flask import Response
    import warnings
    warnings.filterwarnings("ignore")
-
+   
+   dbname='MKK2019_2020'
+   
    try:
        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db_name+';UID='+user+';PWD='+ password)
    except Exception as e:
