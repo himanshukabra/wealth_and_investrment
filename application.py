@@ -778,9 +778,6 @@ def update_account_transaction_for_transaction_entry():
                'remarks':request.json['remarks'],
                'user_name':request.json['user_name']}
        
-       data1=get_broker_id_ledger(data['dbname'],data['broker_id'])
-       print(data1)         
-         
        if float(data['gross_amount'])<0:
                json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['broker_head'],data1['account_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['investment_in_ledger_head'],data['investment_in_ledger'],data['computer_name'],data['createdby'])
        elif float(data['gross_amount'])>0:
@@ -1411,3 +1408,18 @@ def get_mutual_fund_holdings():
         else:           
            json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
            return json_final_data
+
+@app.route("/get_broker_ledger_number", methods=['GET'])
+def get_broker_ledger_number():
+   from flask import Flask, request, jsonify
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'broker_id':request.json['broker_id']}   
+       json_final_data = get_broker_id_ledger(data['dbname'],data['broker_id'])
+
+   else:
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
+   return json_final_data
