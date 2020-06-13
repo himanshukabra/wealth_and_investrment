@@ -1425,7 +1425,7 @@ def get_broker_ledger_number():
        json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
-@app.route("/get_investment_pie_graph", methods=['GET'])
+@app.route("/get_investment_pie_graph.png", methods=['GET'])
 def get_investment_pie_graph():
    from flask import Flask, request, jsonify
    headers = request.headers
