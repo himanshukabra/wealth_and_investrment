@@ -1458,17 +1458,24 @@ def get_investment_pie_graph():
 
    conn.close() 
     
-   def create_figure(abc):
-       fig = Figure()
-       axis = fig.add_subplot(1, 1, 1)
+#    def create_figure(abc):
+#        fig = Figure()
+#        axis = fig.add_subplot(1, 1, 1)
+#        ax1 = plt.subplot(121, aspect='equal')
+#        plot = abc.plot(kind='pie', y='percentage_investment', ax=ax1, figsize=(20,20),autopct='%1.0f%%', 
+#               startangle=180, shadow=False, labels=abc['investment_type'], legend = False, fontsize=9)
+#        plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
+#        plt.axis('off')
+#        return plt
+    
+#    fig = create_figure(abc)
+#    output = io.BytesIO()
+#    FigureCanvas(fig).print_png(output)
+#    return Response(output.getvalue(), mimetype='image/png')
+
        ax1 = plt.subplot(121, aspect='equal')
        plot = abc.plot(kind='pie', y='percentage_investment', ax=ax1, figsize=(20,20),autopct='%1.0f%%', 
               startangle=180, shadow=False, labels=abc['investment_type'], legend = False, fontsize=9)
        plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
        plt.axis('off')
-       return plt
-    
-   fig = create_figure(abc)
-   output = io.BytesIO()
-   FigureCanvas(fig).print_png(output)
-   return Response(output.getvalue(), mimetype='image/png')
+       return Response(plt, mimetype='image/png')
