@@ -1449,7 +1449,7 @@ def get_investment_pie_graph():
    auth = headers.get("X-Api-Key")
    if auth == 'asoidewfoef':       
        data = []
-       data = {'dbname':request.json['dbname'],
+       data = {'dbname':request.json['dbname']}
        db=data['dbname']
 
        try:
