@@ -147,7 +147,6 @@ def get_ledger():
               print(e)
 
           query = "exec USP_R_Ledger 1,%s,%s,'%s','%s'"%(data['ledgerhead'],data['ledgeraccount'],data['from_date'],data['to_date'])
-          print(query)
           abc = pd.read_sql(query, conn)    
           json_final_data = abc.to_json(orient='records', date_format = 'iso')
 
