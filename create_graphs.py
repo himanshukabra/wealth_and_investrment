@@ -11,6 +11,7 @@ pd.options.mode.chained_assignment = None
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
+from flask import Response
 import warnings
 warnings.filterwarnings("ignore")
 
