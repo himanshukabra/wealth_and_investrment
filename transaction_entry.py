@@ -459,4 +459,4 @@ def get_broker_id_ledger(dbname,broker_id):
 
     conn.close() 
 
-    return abc
+    return json_final_data
