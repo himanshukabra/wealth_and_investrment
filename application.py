@@ -1425,9 +1425,8 @@ def get_broker_ledger_number():
        json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
-@app.route("/get_investment_pie_graph.png", methods=['GET'])
+@app.route("/get_investment_pie_graph", methods=['GET'])
 def get_investment_pie_graph():
-  
    import pyodbc
    import io
    import random
@@ -1443,39 +1442,37 @@ def get_investment_pie_graph():
    from matplotlib.figure import Figure
    from flask import Response
    import warnings
+   import base64
    warnings.filterwarnings("ignore")
    
-   db_name='MKK2019_2020'
-   
-   try:
-       conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db_name+';UID='+user+';PWD='+ password)
-   except Exception as e:
-       print(e)
+   headers = request.headers
+   auth = headers.get("X-Api-Key")
+   if auth == 'asoidewfoef':       
+       data = []
+       data = {'dbname':request.json['dbname'],
+       db=data['dbname']
 
-   query = "exec Usp_R_Queries_for_Charts 0"
+       try:
+           conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+       except Exception as e:
+          print(e)
 
-   abc = pd.read_sql(query, conn)
+       query = "exec Usp_R_Queries_for_Charts 0"
 
-   conn.close() 
-    
-#    def create_figure(abc):
-#        fig = Figure()
-#        axis = fig.add_subplot(1, 1, 1)
-#        ax1 = plt.subplot(121, aspect='equal')
-#        plot = abc.plot(kind='pie', y='percentage_investment', ax=ax1, figsize=(20,20),autopct='%1.0f%%', 
-#               startangle=180, shadow=False, labels=abc['investment_type'], legend = False, fontsize=9)
-#        plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
-#        plt.axis('off')
-#        return plt
-    
-#    fig = create_figure(abc)
-#    output = io.BytesIO()
-#    FigureCanvas(fig).print_png(output)
-#    return Response(output.getvalue(), mimetype='image/png')
+       abc = pd.read_sql(query, conn)
+       conn.close() 
 
-   ax1 = plt.subplot(121, aspect='equal')
-   plot = abc.plot(kind='pie', y='percentage_investment', ax=ax1, figsize=(20,20),autopct='%1.0f%%', 
-          startangle=180, shadow=False, labels=abc['investment_type'], legend = False, fontsize=9)
-   plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
-   plt.axis('off')
-   return Response(plt, mimetype='image/png')
+       img = io.BytesIO()
+       ax1 = plt.subplot(121, aspect='equal')
+       plot = abc.plot(kind='pie', y='percentage_investment', ax=ax1, figsize=(20,20),autopct='%1.0f%%', 
+             startangle=180, shadow=False, labels=abc['investment_type'], legend = False, fontsize=9)
+       plot = plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
+       plot = plt.axis('off')
+       plt.savefig(img, format='png')
+       img.seek(0)
+       plot_url = base64.b64encode(img.getvalue()).decode()
+       return '<img src="data:image/png;base64,{}">'.format(plot_url)
+   else:           
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
+       return json_final_data               
+       
