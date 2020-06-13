@@ -1045,7 +1045,7 @@ def get_cash_and_bank_book_entry_date():
           except Exception as e:
               print(e)
 
-          query = "exec Usp_T_BankBook 0,3,'',%s,%s"%(data['from_date'],data['to_date'])
+          query = "exec Usp_T_BankBook 0,3,'','%s','%s'"%(data['from_date'],data['to_date'])
 
           abc = pd.read_sql(query, conn)    
           json_final_data = abc.to_json(orient='records', date_format = 'iso')
