@@ -35,6 +35,9 @@ from journal_entry import delete_journal_book_entry
 from flask import Flask
 app = Flask(__name__)
 
+user="shsa"
+server="103.212.121.67"
+password="Easeprint#021"
 
 @app.route("/home")
 def home():
@@ -62,10 +65,6 @@ def get_all_ledger_heads():
        data = {'dbname':request.json['dbname']}
 
        db=data['dbname']
-       user="shsa"
-       server="103.212.121.67"
-       password="Easeprint#021"
-       port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
@@ -103,10 +102,6 @@ def get_ledger_master():
                'ledgerhead':request.json['ledgerhead']}
          
        db=data['dbname']
-       user="shsa"
-       server="103.212.121.67"
-       password="Easeprint#021"
-       port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
@@ -145,10 +140,6 @@ def get_ledger():
                   'to_date':request.json['to_date']}
 
           db=data['dbname']
-          user="shsa"
-          server="103.212.121.67"
-          password="Easeprint#021"
-          port = "80"
           try:
               conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
           except Exception as e:
@@ -183,10 +174,6 @@ def get_trial_balance():
           data = {'dbname':request.json['dbname']}
 
           db=data['dbname']
-          user="shsa"
-          server="103.212.121.67"
-          password="Easeprint#021"
-          port = "80"
           try:
               conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
           except Exception as e:
@@ -228,10 +215,6 @@ def get_holding_with_gain_loss():
            data = {'dbname':request.json['dbname']}      
 
            db=data['dbname']
-           user="shsa"
-           server="103.212.121.67"
-           password="Easeprint#021"
-           port = "80"
            try:
                conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
            except Exception as e:
@@ -441,10 +424,6 @@ def get_gp_data_cash_book():
        data = {'dbname':request.json['dbname']}
 
        db=data['dbname']
-       user="shsa"
-       server="103.212.121.67"
-       password="Easeprint#021"
-       port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
@@ -478,10 +457,6 @@ def get_cash_opening_balance():
        data = {'dbname':request.json['dbname']}
 
        db=data['dbname']
-       user="shsa"
-       server="103.212.121.67"
-       password="Easeprint#021"
-       port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
@@ -515,10 +490,6 @@ def get_ledger_opening_balance():
                'account_ledger':request.json['account_ledger']}
 
        db=data['dbname']
-       user="shsa"
-       server="103.212.121.67"
-       password="Easeprint#021"
-       port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
@@ -563,10 +534,6 @@ def insert_data_cash_book():
                'entry_type':request.json['entry_type']}
 
        db=data['dbname']
-       user="shsa"
-       server="103.212.121.67"
-       password="Easeprint#021"
-       port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
@@ -1024,10 +991,6 @@ def insert_in_journal_entry():
                'computername':request.json['computername']}
  
        db=data['dbname']
-       user="shsa"
-       server="103.212.121.67"
-       password="Easeprint#021"
-       port = "80"
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
@@ -1077,10 +1040,6 @@ def get_cash_and_bank_book_entry_date():
                   'to_date':request.json['to_date']}
 
           db=data['dbname']
-          user="shsa"
-          server="103.212.121.67"
-          password="Easeprint#021"
-          port = "80"
           try:
               conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
           except Exception as e:
@@ -1136,10 +1095,6 @@ def get_journal_book_entry_data():
                   'to_date':request.json['to_date']}
 
           db=data['dbname']
-          user="shsa"
-          server="103.212.121.67"
-          password="Easeprint#021"
-          port = "80"
           try:
               conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
           except Exception as e:
@@ -1176,10 +1131,6 @@ def get_equity_holding():
            data = {'dbname':request.json['dbname']}      
 
            db=data['dbname']
-           user="shsa"
-           server="103.212.121.67"
-           password="Easeprint#021"
-           port = "80"
            try:
                conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
            except Exception as e:
@@ -1353,10 +1304,6 @@ def get_mutual_fund_holdings():
            data = {'dbname':request.json['dbname']}      
 
            db=data['dbname']
-           user="shsa"
-           server="13.127.124.84,6016"
-           password="Easeprint#021"
-           port = "80"
            try:
                conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
            except Exception as e:
