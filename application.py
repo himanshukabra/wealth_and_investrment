@@ -1450,13 +1450,14 @@ def get_investment_pie_graph():
    if auth == 'asoidewfoef':       
        data = []
        data = {'dbname':request.json['dbname']}
+       print(data)
        db=data['dbname']
 
        try:
            conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
        except Exception as e:
-          print(e)
-
+           print(e)
+            
        query = "exec Usp_R_Queries_for_Charts 0"
 
        abc = pd.read_sql(query, conn)
