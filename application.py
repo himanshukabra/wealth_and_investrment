@@ -82,7 +82,7 @@ def get_all_ledger_heads():
 
     else:
    
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
 
     return json_final_data      
 @app.route('/get_ledger_master', methods=['POST'])
@@ -116,7 +116,7 @@ def get_ledger_master():
    
     else:
    
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
 
     return json_final_data
 
@@ -154,7 +154,7 @@ def get_ledger():
 
        else:
 
-          json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+          json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
 
        return json_final_data
 
@@ -190,7 +190,7 @@ def get_trial_balance():
 
        else:
 
-          json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+          json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
 
        return json_final_data
 
@@ -405,7 +405,7 @@ def get_holding_with_gain_loss():
 
            return json_final_data   
         else:           
-           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+           json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
            return json_final_data   
 
 @app.route('/get_gp_data_cash_book', methods=['POST'])
@@ -438,7 +438,7 @@ def get_gp_data_cash_book():
        conn.close() 
        return json_final_data  
     else:           
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
        return json_final_data 
   
 @app.route('/get_cash_opening_balance', methods=['POST'])
@@ -470,7 +470,7 @@ def get_cash_opening_balance():
        conn.close() 
        return json_final_data  
     else:           
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
        return json_final_data
 
 @app.route('/get_ledger_opening_balance', methods=['POST'])
@@ -503,7 +503,7 @@ def get_ledger_opening_balance():
        conn.close() 
        return json_final_data  
     else:           
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
        return json_final_data   
 
 @app.route('/insert_data_cash_book', methods=['POST'])
@@ -561,10 +561,10 @@ def insert_data_cash_book():
            val = "Data not saved"
        
        conn.close() 
-       return jsonify({"message": val}), 200
+       return jsonify({"response": val}), 200
   
     else:           
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
        return json_final_data       
 
 @app.route("/get_product_list", methods=['POST'])
@@ -578,7 +578,7 @@ def get_product_list():
        json_final_data = get_product(data['dbname'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_scheme_list", methods=['POST'])
@@ -593,7 +593,7 @@ def get_scheme_list():
        json_final_data = get_scheme(data['dbname'],data['product_id'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_broker_list", methods=['POST'])
@@ -607,7 +607,7 @@ def get_broker_list():
        json_final_data = get_broker(data['dbname'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_demat_list", methods=['POST'])
@@ -622,7 +622,7 @@ def get_demat_list():
        json_final_data = get_demat(data['dbname'],data['broker_id'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_scrip_opening_balance", methods=['POST'])
@@ -639,7 +639,7 @@ def get_scrip_opening_balance():
        json_final_data = get_scrip_opening(data['dbname'],data['scrip_id'],data['product_id'],data['folio_number'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_scrip_folio_list", methods=['POST'])
@@ -655,7 +655,7 @@ def get_scrip_folio_list():
        json_final_data = get_folios(data['dbname'],data['scrip_id'],data['product_id'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/insert_temp_transactions", methods=['POST'])
@@ -681,7 +681,7 @@ def insert_temp_transactions():
        json_final_data = insert_temp_transaction_register(data['dbname'],data['product_id'],data['scrip_id'],data['folio_number'],data['transaction_type'],data['quantity'],data['gross_rate'],data['gross_amount'],data['brokerage'],data['stt'],data['net_rate'],data['user_name'],data['computer_name'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_temp_transaction_data", methods=['POST'])
@@ -697,7 +697,7 @@ def get_temp_transaction_data():
        json_final_data = get_temp_transaction(data['dbname'],data['user_name'],data['computer_name'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/delete_temp_transaction_data", methods=['POST'])
@@ -712,7 +712,7 @@ def delete_temp_transaction_data():
        json_final_data = delete_temp_transaction(data['dbname'],data['tableid'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_total_for_temp_tran", methods=['POST'])
@@ -728,7 +728,7 @@ def get_total_for_temp_tran():
        json_final_data = get_total_for_temp_transaction(data['dbname'],data['user_name'],data['computer_name'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_product_ledger_data", methods=['POST'])
@@ -742,7 +742,7 @@ def get_product_ledger_data():
        json_final_data = get_product_ledger_list(data['dbname'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route('/update_account_transaction_for_transaction_entry', methods=['POST'])
@@ -786,7 +786,7 @@ def update_account_transaction_for_transaction_entry():
        elif float(data['gross_amount'])>0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],0,data['date'],data['investment_in_ledger_head'],data['investment_in_ledger'],'',data['contract_number'],'Transaction done for contract number '+str(data['contract_number']),abs(float(data['gross_amount'])),data['broker_head'],data1['account_ledger'],data['computer_name'],data['createdby'])
        elif float(data['gross_amount'])==0:
-            json_final_data = jsonify({"message": "ERROR: net amount cannot be zero "}), 200
+            json_final_data = jsonify({"response": "ERROR: net amount cannot be zero "}), 200
 
        if float(data['stt_amount'])>0:
             json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],2,data['date'],2,8119,'',data['contract_number'],'Securities Transaction Tax on contract number '+str(data['contract_number']),abs(float(data['stt_amount'])),data['broker_head'],data1['account_ledger'],data['computer_name'],data['createdby'])
@@ -822,7 +822,7 @@ def get_auto_debit_transactions_list():
 
    else:
       
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
 
@@ -876,7 +876,7 @@ def get_bank_list():
       
        json_final_data = get_bank_names(data['dbname'])
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
 
@@ -892,7 +892,7 @@ def get_ledger_opening_from_master():
       
        json_final_data = get_ledger_opening(data['dbname'],data['account_ledger'])
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
 
@@ -911,7 +911,7 @@ def update_opening_to_master():
        json_final_data = update_new_opening_balance_for_ledger(data['dbname'],data['account_ledger'],data['debit_amount'],data['credit_amount'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
 
@@ -936,7 +936,7 @@ def insert_temp_journal():
        json_final_data = insert_data_in_temp_journal(data['dbname'],data['date'],data['account_head'],data['account_ledger'],data['drcr'],data['vouchernumber'],data['standard_description'],data['amount'],data['computername'],data['createdby'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
          
    return json_final_data
 
@@ -953,7 +953,7 @@ def delete_temp_journal_transaction():
        json_final_data = delete_temp_journal_entry(data['dbname'],data['tableid'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_temp_journal_transaction_data", methods=['POST'])
@@ -969,7 +969,7 @@ def get_temp_journal_transaction_data():
        json_final_data = get_temp_journal_transaction(data['dbname'],data['createdby'],data['computername'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route('/insert_in_journal_entry', methods=['POST'])
@@ -1053,7 +1053,7 @@ def get_cash_and_bank_book_entry_date():
 
        else:
 
-          json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+          json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
             
        return json_final_data
 
@@ -1075,7 +1075,7 @@ def delete_cash_or_bank_book_entry_data():
            json_final_data = delete_bank_book_entry(data['dbname'],data['tableid'],data['auto_serial_number']) 
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data
 
 @app.route("/get_journal_book_entry_data", methods=['POST'])
@@ -1108,7 +1108,7 @@ def get_journal_book_entry_data():
 
        else:
 
-          json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+          json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
 
 @app.route('/get_equity_holding', methods=['POST'])
 def get_equity_holding(): 
@@ -1231,7 +1231,7 @@ def get_equity_holding():
                equity_final_data = equity_final_data.round({'total_amount' : 2,'current_value' : 2,'gain/loss' : 2,'absolute_gain(%)':2})     
 
            if equity_data.empty:
-               json_final_data = jsonify({"message": "no data to show"})
+               json_final_data = jsonify({"response": "no data to show"})
                exit()  
            else:
                frames = [equity_final_data]            
@@ -1250,7 +1250,7 @@ def get_equity_holding():
            json_final_data = combined_holding_data.to_json(orient='records', date_format = 'iso')
          
         else:           
-           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401          
+           json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401          
              
         return json_final_data
 
@@ -1266,7 +1266,7 @@ def delete_journal_entry_data():
        json_final_data = delete_journal_book_entry(data['dbname'],data['auto_serial_number'])
 
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data 
 
 @app.route("/edit_bank_data", methods=['POST'])
@@ -1280,7 +1280,7 @@ def edit_bank_data():
                'auto_serial_number':request.json['auto_serial_number']}   
        json_final_data = get_bank_book_data_for_auto_serial_number(data['dbname'],data['auto_serial_number'])
    else:
-       json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401   
+       json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data 
 
 @app.route('/get_mutual_fund_holdings', methods=['GET'])
@@ -1409,5 +1409,5 @@ def get_mutual_fund_holdings():
            return json_final_data  
          
         else:           
-           json_final_data = jsonify({"message": "ERROR: Unauthorized Access"}), 401
+           json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
            return json_final_data
