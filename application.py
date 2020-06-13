@@ -1427,8 +1427,24 @@ def get_broker_ledger_number():
 
 @app.route("/get_investment_pie_graph.png", methods=['GET'])
 def get_investment_pie_graph():
+  
+   import pyodbc
+   import io
+   import random
+   import pandas as pd
+   import pandas.io.sql as psql
+   import json
+   import datetime as dt
+   from pandas.io.json import json_normalize
    from flask import Flask, request, jsonify
-   
+   pd.options.mode.chained_assignment = None
+   import matplotlib.pyplot as plt
+   from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+   from matplotlib.figure import Figure
+   from flask import Response
+   import warnings
+   warnings.filterwarnings("ignore")
+
    try:
        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db_name+';UID='+user+';PWD='+ password)
    except Exception as e:
