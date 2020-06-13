@@ -1466,7 +1466,7 @@ def get_investment_pie_graph():
               startangle=180, shadow=False, labels=abc['investment_type'], legend = False, fontsize=9)
        plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
        plt.axis('off')
-       return fig
+       return plt
     
    fig = create_figure(abc)
    output = io.BytesIO()
