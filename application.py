@@ -1280,7 +1280,7 @@ def edit_bank_data():
        json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401   
    return json_final_data 
 
-@app.route('/get_mutual_fund_holdings', methods=['GET'])
+@app.route('/get_mutual_fund_holdings', methods=['POST'])
 def get_mutual_fund_holdings(): 
         import pyodbc
         import pandas as pd
