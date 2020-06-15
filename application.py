@@ -1466,7 +1466,7 @@ def get_investment_pie_graph():
        ax1 = plt.subplot(121, aspect='equal')
        plot = abc.plot(kind='pie', y='percentage_investment', ax=ax1, figsize=(20,20),autopct='%1.0f%%', 
              startangle=180, shadow=False, labels=abc['investment_type'], legend = False, fontsize=9)
-       plot = plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
+#        plot = plt.legend(bbox_to_anchor=(1.2, 1), loc=1, borderaxespad=0)
        plot = plt.axis('off')
        plt.savefig(img, format='png')
        img.seek(0)
