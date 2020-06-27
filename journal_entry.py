@@ -110,8 +110,8 @@ def get_temp_journal_transaction(dbname,user_name,computer_name):
     except Exception as e:
         print(e)
 
-    query = "select tableid,date,AccountHead as account_head,AccountLedger as account_ledger,DRCR as drcr,VoucherNumber as voucher_number,StandardDescription1 as standard_description,Amount as amount from t_temp_journal where ComputerName = '%s' and CreatedBy = '%s'"%(computer_name,user_name)
-
+    #query = "select tableid,date,AccountHead as account_head,AccountLedger as account_ledger,DRCR as drcr,VoucherNumber as voucher_number,StandardDescription1 as standard_description,Amount as amount from t_temp_journal where ComputerName = '%s' and CreatedBy = '%s'"%(computer_name,user_name)
+    query = "select t1.tableid,date,t3.mainledgerheads as account_head,t2.ledgername as account_ledger,t1.DRCR as drcr,isnull(t1.VoucherNumber,'') as voucher_number,t1.StandardDescription1 as standard_description,t1.Amount as amount from t_temp_journal t1 left join m_ledgermaster t2 on t1.accountledger=t2.tableid left join M_Main_Ledger_Head t3 on t2.ledgerhead=t3.mainleadgerheadid where t1.ComputerName = '%s' and t1.CreatedBy = '%s'"%(computer_name,user_name) 
     abc = pd.read_sql(query, conn)
 
     json_final_data = abc.to_json(orient='records', date_format = 'iso')
@@ -170,8 +170,8 @@ def get_temp_journal_transaction_as_dataframe(dbname,user_name,computer_name):
     except Exception as e:
         print(e)
 
-    query = "select t1.tableid,date,t3.mainledgerheads as account_head,t2.ledgername as account_ledger,t1.DRCR as drcr,isnull(t1.VoucherNumber,'') as voucher_number,t1.StandardDescription1 as standard_description,t1.Amount as amount from t_temp_journal t1 left join m_ledgermaster t2 on t1.accountledger=t2.tableid left join M_Main_Ledger_Head t3 on t2.ledgerhead=t3.mainleadgerheadid where t1.ComputerName = '%s' and t1.CreatedBy = '%s'"%(computer_name,user_name)
-
+    #query = "select t1.tableid,date,t3.mainledgerheads as account_head,t2.ledgername as account_ledger,t1.DRCR as drcr,isnull(t1.VoucherNumber,'') as voucher_number,t1.StandardDescription1 as standard_description,t1.Amount as amount from t_temp_journal t1 left join m_ledgermaster t2 on t1.accountledger=t2.tableid left join M_Main_Ledger_Head t3 on t2.ledgerhead=t3.mainleadgerheadid where t1.ComputerName = '%s' and t1.CreatedBy = '%s'"%(computer_name,user_name)
+    query = "select tableid,date,AccountHead as account_head,AccountLedger as account_ledger,DRCR as drcr,VoucherNumber as voucher_number,StandardDescription1 as standard_description,Amount as amount from t_temp_journal where ComputerName = '%s' and CreatedBy = '%s'"%(computer_name,user_name)
     abc = pd.read_sql(query, conn)
 
     conn.close() 
