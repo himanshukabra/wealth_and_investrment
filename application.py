@@ -1003,6 +1003,7 @@ def insert_in_journal_entry():
          
        for i in data_from_db.itertuples():
            query = "exec Usp_T_Insert_in_Journal_Web 0,'%s',%s,%s,'%s','%s','%s','%s',%s,'%s','%s'"%(i[2],i[3],i[4],i[5],data['voucher_number'],str(sn),i[7],i[8],data['computername'],data['createdby'])
+           print(query)
            a = cur.execute(query)
            cur.commit()
 
