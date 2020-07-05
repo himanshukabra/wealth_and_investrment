@@ -238,3 +238,35 @@ def delete_journal_book_entry(dbname,auto_serial_number):
 
     conn.close() 
     return jsonify({"message": val}), 200 
+
+def insert_data_in_account_transaction(dbname,sp_type,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,amount,ledgerhead1,ledger_account,computer_name,created_by):
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    from flask import Flask, request, jsonify
+      
+    db=dbname
+    user="shsa"
+    server="103.212.121.67"
+    password="Easeprint#021"
+    port = "80"
+    try:
+        conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+db+';UID='+user+';PWD='+ password)
+
+    except Exception as e:
+        print(e)
+    cur = conn.cursor()
+    query = "exec Usp_T_Insert_in_Account_Transaction 1,%s,'%s',%s,%s,'%s','%s',4,'%s','%s','%s','%s',%s,%s,%s,%s,'&s','%s','%s'"%(sp_type,date_of_transaction,account_head,account_ledger,DRCR,voucher_number,standard_description,standard_description,standard_description,standard_description,amount,ledgerhead1,ledger_account,ledger_account,computer_name,created_by)
+    print(query)
+    a = cur.execute(query)
+    cur.commit()
+
+    check_e = a.rowcount
+    if check_e>=1:
+       val = "Saved Successfully"
+    else:
+       val = "Data not saved"
+
+    conn.close() 
+    return val
