@@ -1476,4 +1476,38 @@ def get_investment_pie_graph():
    else:           
        json_final_data = jsonify({"response": "ERROR: Unauthorized Access"}), 401
        return json_final_data               
+
+@app.route('/update_salary_entries', methods=['POST'])
+def update_salary_entries():
+    
+    import pyodbc
+    import pandas as pd
+    import pandas.io.sql as psql
+    pd.options.mode.chained_assignment = None      
+    from flask import Flask, request, jsonify
+    headers = request.headers
+    auth = headers.get("X-Api-Key")
+    if auth == 'asoidewfoef':  
+  
+       data = []
+       data = {'dbname':request.json['dbname'],
+               'date':request.json['date'],
+               'account_ledger':request.json['account_ledger'],
+               'account_head':request.json['account_head'],
+               'amount':request.json['amount'],
+               'salary_from_ledger_head':request.json['salary_from_ledger_head'],
+               'salary_from_ledger':request.json['salary_from_ledger'],
+               'DRCR':request.json['DRCR'],
+               'createdby':request.json['createdby'],
+               'computer_name':request.json['computer_name'],
+               'voucher_number':request.json['voucher_number'],
+               'description':request.json['description']}
        
+
+       json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['account_head'],data['account_ledger'],data['DRCR'],data['voucher_number'],data['description'],abs(float(data['amount'])),data['salary_from_ledger_head'],data['salary_from_ledger'],data['computer_name'],data['createdby'])
+      
+    else:           
+       json_final_data = "ERROR: Unauthorized Access"
+         
+       
+    return jsonify({"response": json_final_data})   
