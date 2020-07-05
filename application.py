@@ -26,6 +26,7 @@ from journal_entry import get_temp_journal_transaction
 from journal_entry import insert_journal
 from journal_entry import get_temp_journal_transaction_as_dataframe
 from journal_entry import delete_temp_transaction_permanently_post_entry_for_journal
+from journal_entry import insert_data_in_account_transaction
 from cash_book import get_bank_book_data
 from cash_book import delete_cash_book_entry
 from cash_book import delete_bank_book_entry
@@ -1504,7 +1505,7 @@ def update_salary_entries():
                'description':request.json['description']}
        
 
-       json_final_data = insert_data_in_at_from_transaction_entry(data['dbname'],1,data['date'],data['account_head'],data['account_ledger'],data['DRCR'],data['voucher_number'],data['description'],abs(float(data['amount'])),data['salary_from_ledger_head'],data['salary_from_ledger'],data['computer_name'],data['createdby'])
+       json_final_data = insert_data_in_account_transaction(data['dbname'],4,data['date'],data['account_head'],data['account_ledger'],data['DRCR'],data['voucher_number'],data['description'],abs(float(data['amount'])),data['salary_from_ledger_head'],data['salary_from_ledger'],data['computer_name'],data['createdby'])
       
     else:           
        json_final_data = "ERROR: Unauthorized Access"
